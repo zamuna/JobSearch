@@ -3,8 +3,9 @@
 .idea/uiDesigner.xml
 out/artifacts/JobSearchApp_war_exploded/WEB-INF/classes/com/
 target/
-.idea/
-out/
+.idea/*
+out/*
 JobSearchApp.iml
 *.iml
+/out/*
 
