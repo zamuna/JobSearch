@@ -1,0 +1,8 @@
+.idea/kotlinc.xml
+.idea/libraries/Maven__mysql_mysql_connector_java_5_1_6.xml
+.idea/uiDesigner.xml
+out/artifacts/JobSearchApp_war_exploded/WEB-INF/classes/com/
+target/
+.idea/
+out/
+JobSearchApp.iml
