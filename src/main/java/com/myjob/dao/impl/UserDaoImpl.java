@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
         String readQuery = "SELECT * from users;";
         try {
             stmt = DBconnection.getConnection().createStatement();
-           // System.out.println("the query: " + readQuery);
+            // System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             User user;
             while (rs.next()) {
@@ -82,20 +82,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User add(User user) {
-       /* String query = "INSERT INTO users (
-                DbConstant.UserConstant.FULLNAME ,
-                DbConstant.UserConstant.GENDER,
-                DbConstant.UserConstant.STATE ,
-                DbConstant.UserConstant.CITY,
-                DbConstant.UserConstant.STREET,
-                DbConstant.UserConstant.ZIP_CODE,
-                DbConstant.UserConstant.BIRTHYEAR,
-                DbConstant.UserConstant.EMAIL,
-                DbConstant.UserConstant.PASSWORD,
-                DbConstant.UserConstant.DATECREATED,
-                DbConstant.UserConstant.DATEUPDATED)" +
-                "VALUES(user.getFullname(),user.getGender(),user.getState(),user.getCity(),user.getStreet(),user.getZipcode(),user.getBirthyear(),user.getEmail(),user.getPassword(),user.getDatecreated(),user.getDateupdated())";
-*/
+
 
         String query = "INSERT INTO users (" + DbConstant.UserConstant.FULLNAME + ", " + DbConstant.UserConstant.GENDER + "," + DbConstant.UserConstant.STATE + " ," + DbConstant.UserConstant.CITY + ", " + DbConstant.UserConstant.STREET + "," + DbConstant.UserConstant.ZIP_CODE + "," + DbConstant.UserConstant.BIRTHYEAR + "," + DbConstant.UserConstant.EMAIL + "," + DbConstant.UserConstant.PASSWORD + "," + DbConstant.UserConstant.DATECREATED + " ," + DbConstant.UserConstant.DATEUPDATED + ") " +
                 "VALUES ('" + user.getFullname() + "', '" + user.getGender() + "', '" + user.getState() + "', '" + user.getCity() + "', '" + user.getStreet() + "', '" + user.getZipcode() + "', '" + user.getBirthyear() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getDatecreated() + "', '" + user.getDateupdated() + "')";
@@ -103,7 +90,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             Statement stmt = DBconnection.getConnection().createStatement();
-           // System.out.println("the query: " + query);
+
             Integer rowEffected = stmt.executeUpdate(query);
             if (rowEffected > 0) {
                 return user;
@@ -117,16 +104,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User update(Integer userId, User user) {
-        //Incorrect query
-        String query = "UPDATE users (" + DbConstant.UserConstant.FULLNAME + "', '" +
-                DbConstant.UserConstant.GENDER + "', '" +
-                DbConstant.UserConstant.CITY + "', '" +
-                DbConstant.UserConstant.STATE + "', '" +
-                DbConstant.UserConstant.STREET + "', )' VALUES ('" + user.getFullname();
+
+        String query = "UPDATE  users set "
+                + DbConstant.UserConstant.FULLNAME + " = " + "'" + user.getFullname() + "'" + ","
+                + DbConstant.UserConstant.GENDER + " = " + "'" + user.getGender() + "'" + ","
+                + DbConstant.UserConstant.STATE + " = " + "'" + user.getState() + "'" + ","
+                + DbConstant.UserConstant.CITY + " = " + "'" + user.getCity() + "'" + ","
+                + DbConstant.UserConstant.STREET + " = " + "'" + user.getStreet() + "'" + ","
+                + DbConstant.UserConstant.ZIP_CODE + " = " + "'" + user.getZipcode() + "'" + ","
+                + DbConstant.UserConstant.BIRTHYEAR + " = " + "'" + user.getBirthyear() + "'" + ","
+                + DbConstant.UserConstant.EMAIL + " = " + "'" + user.getEmail() + "'" + ","
+                + DbConstant.UserConstant.PASSWORD + " = " + "'" + user.getPassword() + "'" + ","
+                + DbConstant.UserConstant.DATECREATED + " = " + "'" + user.getDatecreated() + "'" + ","
+                + DbConstant.UserConstant.DATEUPDATED + " = " + "'" + user.getDateupdated() + "'"
+                + " WHERE " + DbConstant.UserConstant.USER_ID + "=" + userId + ";";
+        // System.out.println(query);
 
         try {
             Statement stmt = DBconnection.getInstance().getConnection().createStatement();
-            System.out.println("the query: " + query);
+
             Integer rowEffected = stmt.executeUpdate(query);
             if (rowEffected > 0) {
                 return user;
@@ -140,7 +136,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Boolean delete(Integer userId) {
-        String query = "DELETE FROM users WHERE "+DbConstant.UserConstant.USER_ID+"=" + userId + ";";
+        String query = "DELETE FROM users WHERE " + DbConstant.UserConstant.USER_ID + "=" + userId + ";";
         try {
             Statement stmt = DBconnection.getConnection().createStatement();
             //System.out.println("the query: " + query);
@@ -158,11 +154,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User login(String userEmail, String pass) {
-        if(userEmail=="" || userEmail==null || pass=="" || pass==null)
+        if (userEmail == "" || userEmail == null || pass == "" || pass == null)
             return null;
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + userEmail + "' and "+DbConstant.UserConstant.PASSWORD +"='"+pass+"'";
+        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "'";
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
@@ -205,6 +201,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /*for testing*/
     public static void main(String[] args) {
         UserDaoImpl userDao = new UserDaoImpl();
 
@@ -213,20 +210,23 @@ public class UserDaoImpl implements UserDao {
         //userDao.add(new User("manoj", 1, "iowa", "fairfield", "1000nth", 52557, 1992, "ct@gmail.com", "tharu", new java.sql.Timestamp(today.getTime()), new java.sql.Timestamp(today.getTime())));
 
         /*getAll method is working*/
-       for(User u:userDao.getAll()){
+        for (User u : userDao.getAll()) {
 
-           System.out.println( u.getFullname()+" "+u.getEmail());
-       }
+            System.out.println(u.getFullname() + " " + u.getEmail());
+        }
 
 
         /*get method is working*/
-       User u=userDao.get(1);
+        User u = userDao.get(1);
         System.out.println(u.getFullname());
         System.out.println(u.getZipcode());
         System.out.println(u.getState());
 
         /*delete method is working*/
         userDao.delete(1);
+
+         /*update method is working*/
+        userDao.update(2, new User("jamuna ghale", 2, "iowa", "fairfield", "1000nth", 52557, 1989, "jamuna@gmail.com", "jamuna", new java.sql.Timestamp(today.getTime()), new java.sql.Timestamp(today.getTime())));
 
     }
 }
