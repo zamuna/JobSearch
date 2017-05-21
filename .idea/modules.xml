@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/wapProject.iml" filepath="$PROJECT_DIR$/wapProject.iml" />
+      <module fileurl="file://D:\myGitProjects\WAP_Project\JobSearch\wapProject.iml" filepath="D:\myGitProjects\WAP_Project\JobSearch\wapProject.iml" />
     </modules>
   </component>
 </project>
