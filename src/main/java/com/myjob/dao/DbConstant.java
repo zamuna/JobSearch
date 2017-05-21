@@ -20,6 +20,8 @@ public class DbConstant {
         public static final String DATEUPDATED = "dateupdated";
 
     }
+    public static class LikeConstant{
 
+    }
 
 }

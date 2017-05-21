@@ -155,6 +155,56 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+
+    @Override
+    public User login(String userEmail, String pass) {
+        if(userEmail=="" || userEmail==null || pass=="" || pass==null)
+            return null;
+        User user = null;
+        Statement stmt = null;
+        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + userEmail + "' and "+DbConstant.UserConstant.PASSWORD +"='"+pass+"'";
+        try {
+            stmt = DBconnection.getConnection().createStatement();
+            System.out.println("the query: " + readQuery);
+            ResultSet rs = stmt.executeQuery(readQuery);
+            while (rs.next()) {
+                user = new User();
+                user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
+                user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
+                user.setState(rs.getString(DbConstant.UserConstant.STATE));
+                user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+
+    @Override
+    public User getUserByEmail(String useremail) {
+        User user = null;
+        Statement stmt = null;
+        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + useremail + "';";
+        try {
+            stmt = DBconnection.getConnection().createStatement();
+            System.out.println("the query: " + readQuery);
+            ResultSet rs = stmt.executeQuery(readQuery);
+            while (rs.next()) {
+                user = new User();
+                user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
+                user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
+                user.setState(rs.getString(DbConstant.UserConstant.STATE));
+                user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     public static void main(String[] args) {
         UserDaoImpl userDao = new UserDaoImpl();
 

@@ -13,4 +13,6 @@ public interface UserDao {
     User add(User user);
     User update(Integer userId, User user);
     Boolean delete(Integer userId);
+    User login(String userEmail,String pass);
+    User getUserByEmail(String useremail);
 }
