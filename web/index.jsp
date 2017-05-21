@@ -70,7 +70,7 @@
 
           <form action="#" class="form2" method="post">
             <div class="form__wrapper">
-              <input type="email" class="form__input" id="email" name="email">
+              <input type="email" class="form__input" id="emaill" name="email">
               <label class="form__label" for="email">
                 <span class="form__label-content">Email</span>
               </label>
