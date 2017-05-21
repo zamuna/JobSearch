@@ -5,6 +5,7 @@ import com.myjob.model.User;
 import org.omg.CORBA.INTERNAL;
 /*import com.sun.java.util.jar.pack.Instruction;*/
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 /**
  * Created by Rabin Shrestha on 5/21/2017.
  */
+@WebServlet("/UserController")
 public class UserController extends HttpServlet {
     UserDao userDao;
 
@@ -26,7 +28,8 @@ public class UserController extends HttpServlet {
         String operation = request.getParameter("operation");
         HttpSession loginSession = request.getSession();
 
-        if (operation.equals("doSignIn")) {
+        if (operation.equals("doSignIn"))
+        {
             String useremail = request.getParameter("userEmail");
             String password = request.getParameter("userPassword");
             User newuser=tryLogin(useremail, password);
