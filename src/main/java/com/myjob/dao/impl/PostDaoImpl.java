@@ -15,9 +15,10 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> getAll() {
+    public List<Post> getAll(Integer postType) {
         return null;
     }
+
 
     @Override
     public Post add(Post post) {

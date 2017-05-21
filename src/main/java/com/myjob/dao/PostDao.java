@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface PostDao {
     Post get(Integer postId);
-    List<Post> getAll();
+    List<Post> getAll(Integer postType);
     Post add(Post post);
     Post update(Integer postId,Post post);
     Post delete(Integer postId);
