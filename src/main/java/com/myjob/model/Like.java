@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 public class Like {
     public Like() {
     }
-
     private Integer likeid;
     private Integer userid;
     private Integer postid;
