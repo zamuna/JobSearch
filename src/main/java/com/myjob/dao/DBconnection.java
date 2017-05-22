@@ -13,7 +13,8 @@ public class DBconnection {
     private DBconnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex) {
             System.out.println("MySQL JDBC driver not found in DBConnection\n" + ex);
             System.exit(0);
         }
@@ -34,12 +35,7 @@ public class DBconnection {
         }
         return connection;
     }
-    public static void main(String[] args) {
-        DBconnection dBconnection = new DBconnection();
-        dBconnection.retrieveUserFullname("ctmanoj55@gmail.com");
-    }
-
-    String retrieveUserFullname(String email) {
+    String retrieveUserFullname(String email){
         String readQuery = "SELECT * from users where email = '" + email + "';";
         String fullname = "No information found for the requested user: " + email;
 
@@ -63,8 +59,10 @@ public class DBconnection {
 
         return fullname;
     }
-
-
+    public static void main(String[] args) {
+        DBconnection dBconnection = new DBconnection();
+        dBconnection.retrieveUserFullname("ctmanoj55@gmail.com");
+    }
     public String mockRetrieveUserFullname(String email) {
         String fullname = "no definition found";
         switch (email) {

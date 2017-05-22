@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 
 /**
@@ -31,32 +32,39 @@ public class UserController extends HttpServlet {
 
         if (request.getParameter("doSignIn")!=null)
         {
+            System.out.println(" sign up request cought here !!");
             String useremail = request.getParameter("userEmail");
             String password = request.getParameter("userPassword");
             User newuser=tryLogin(useremail, password);
             if ((newuser) != null) {
                 loginSession.setAttribute("loggedInUser", newuser);
+                System.out.println(" user is logged in");
             }
 
-        } else if (request.getParameter("doSignOut")!=null) {
+        }// Sign out operation
+        else if (request.getParameter("doSignOut")!=null) {
             request.getSession().invalidate();
+            System.out.println(" user signed out");
             // after user signout : should go to login page
             request.getRequestDispatcher("login.jsp");
-        } else if (request.getParameter("doCreateUser")!=null) {
+        }// sign up operation
+        else if (request.getParameter("doSignUp")!=null) {
 
+            System.out.println(" sign up request cought here !!");
             User user = getUserInfoFromClient(request);
             if (createNewUser(user) != null) {
                 request.setAttribute("userCreated", "True");
                 request.getRequestDispatcher("login.jsp");
             }
-        } else if( request.getParameter("doUpdateUser")!=null)
+        } // user profile change operation
+        else if( request.getParameter("doUpdateUser")!=null)
         {
             User user = getUserInfoFromClient(request);
             if (createNewUser(user) != null) {
                 request.setAttribute("userUpdated", "True");
                 // request.getRequestDispatcher("login.jsp");
             }
-        }
+        }// delete user
         else if(request.getParameter("deleteUser")!=null)
         {   // this user id is of database id
             Integer userid= Integer.parseInt(loginSession.getAttribute("user_id").toString());
@@ -78,16 +86,26 @@ public class UserController extends HttpServlet {
 
     private User getUserInfoFromClient(javax.servlet.http.HttpServletRequest request) {
 
-        User user = new User();
-        user.setFullname(request.getParameter("fullName"));
-        user.setGender(Integer.parseInt(request.getParameter("gender")));
-        user.setState(request.getParameter("state"));
-        user.setCity(request.getParameter("city"));
-        user.setStreet(request.getParameter("street"));
-        user.setZipcode(Integer.parseInt(request.getParameter("zipCode")));
-        user.setBirthyear(Integer.parseInt(request.getParameter("birthYear")));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password"));
+
+            User user = new User();
+        try {
+            user.setFullname(request.getParameter("fullName"));
+
+            System.out.println(request.getParameter("gender"));
+            user.setGender(Integer.parseInt(request.getParameter("gender")));
+            user.setState(request.getParameter("state"));
+            user.setCity(request.getParameter("city"));
+            user.setStreet(request.getParameter("street"));
+            user.setZipcode(Integer.parseInt(request.getParameter("zipCode")));
+            user.setBirthyear(Integer.parseInt(request.getParameter("birthYear")));
+            user.setEmail(request.getParameter("email"));
+            user.setPassword(request.getParameter("password"));
+            user.setDatecreated(new Timestamp(System.currentTimeMillis()));
+            user.setDateupdated(new Timestamp(System.currentTimeMillis()));
+        }catch (NumberFormatException ex)
+        {
+            System.out.println(" exception occur : "+ ex);
+        }
         return user;
 
     }

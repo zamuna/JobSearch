@@ -51,6 +51,7 @@ public class UserDaoImpl implements UserDao {
         List<User> users = new ArrayList<>();
         Statement stmt = null;
         String readQuery = "SELECT * from users;";
+        System.out.println("the query is "+readQuery);
         try {
             stmt = DBconnection.getConnection().createStatement();
             // System.out.println("the query: " + readQuery);
@@ -87,6 +88,7 @@ public class UserDaoImpl implements UserDao {
         String query = "INSERT INTO users (" + DbConstant.UserConstant.FULLNAME + ", " + DbConstant.UserConstant.GENDER + "," + DbConstant.UserConstant.STATE + " ," + DbConstant.UserConstant.CITY + ", " + DbConstant.UserConstant.STREET + "," + DbConstant.UserConstant.ZIP_CODE + "," + DbConstant.UserConstant.BIRTHYEAR + "," + DbConstant.UserConstant.EMAIL + "," + DbConstant.UserConstant.PASSWORD + "," + DbConstant.UserConstant.DATECREATED + " ," + DbConstant.UserConstant.DATEUPDATED + ") " +
                 "VALUES ('" + user.getFullname() + "', '" + user.getGender() + "', '" + user.getState() + "', '" + user.getCity() + "', '" + user.getStreet() + "', '" + user.getZipcode() + "', '" + user.getBirthyear() + "', '" + user.getEmail() + "', '" + user.getPassword() + "', '" + user.getDatecreated() + "', '" + user.getDateupdated() + "')";
 
+        System.out.println("the insert query is "+query);
 
         try {
             Statement stmt = DBconnection.getConnection().createStatement();
@@ -115,10 +117,12 @@ public class UserDaoImpl implements UserDao {
                 + DbConstant.UserConstant.BIRTHYEAR + " = " + "'" + user.getBirthyear() + "'" + ","
                 + DbConstant.UserConstant.EMAIL + " = " + "'" + user.getEmail() + "'" + ","
                 + DbConstant.UserConstant.PASSWORD + " = " + "'" + user.getPassword() + "'" + ","
-                + DbConstant.UserConstant.DATECREATED + " = " + "'" + user.getDatecreated() + "'" + ","
+                /*+ DbConstant.UserConstant.DATECREATED + " = " + "'" + user.getDatecreated() + "'" + ","*/
                 + DbConstant.UserConstant.DATEUPDATED + " = " + "'" + user.getDateupdated() + "'"
                 + " WHERE " + DbConstant.UserConstant.USER_ID + "=" + userId + ";";
-        // System.out.println(query);
+
+        System.out.println("the update query is "+query);
+
 
         try {
             Statement stmt = DBconnection.getInstance().getConnection().createStatement();
@@ -137,6 +141,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Boolean delete(Integer userId) {
         String query = "DELETE FROM users WHERE " + DbConstant.UserConstant.USER_ID + "=" + userId + ";";
+        System.out.println("the delete query is "+query);
+
+
         try {
             Statement stmt = DBconnection.getConnection().createStatement();
             //System.out.println("the query: " + query);
@@ -158,7 +165,10 @@ public class UserDaoImpl implements UserDao {
             return null;
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "'";
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "'";
+        System.out.println("the login query is "+readQuery);
+
+
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
@@ -182,7 +192,8 @@ public class UserDaoImpl implements UserDao {
     public User getUserByEmail(String useremail) {
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where '" + DbConstant.UserConstant.EMAIL + "'=" + useremail + "';";
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + useremail + "';";
+        System.out.println("Check if user with given Email query  :" +readQuery);
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
