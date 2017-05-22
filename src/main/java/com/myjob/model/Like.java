@@ -8,6 +8,14 @@ import java.sql.Timestamp;
 public class Like {
     public Like() {
     }
+
+    public Like(Integer userid, Integer postid, Timestamp datecreated, Timestamp dateupdated) {
+        this.userid = userid;
+        this.postid = postid;
+        this.datecreated = datecreated;
+        this.dateupdated = dateupdated;
+    }
+
     private Integer likeid;
     private Integer userid;
     private Integer postid;
