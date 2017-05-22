@@ -14,7 +14,8 @@ public class Post {
         this.datecreated = datecreated;
         this.dateupdated = dateupdated;
     }
-
+public Post()
+{}
     private Integer postid;
     private Integer userid;
     private String post;

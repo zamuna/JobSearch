@@ -14,6 +14,7 @@ public class PostDaoImpl implements PostDao {
         return null;
     }
 
+
     @Override
     public List<Post> getAll(Integer postType) {
         return null;
@@ -32,6 +33,11 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public Post delete(Integer postId) {
+        return null;
+    }
+
+    @Override
+    public Post getAll(Integer postType, Integer zipCode) {
         return null;
     }
 }
