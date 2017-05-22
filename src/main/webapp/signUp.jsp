@@ -4,17 +4,19 @@
 <main class="container">
     <section class="sign_up card">
         <h3 class=" glyphicon glyphicon-user" > SignUp</h3>
-        <form class="form" method="post" action="UserController">
+        <form class="form" method="post" action="UserController" autocomplete="on">
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
+
                     <input type="text" class="form-control" name="fullName" id="fullNameId" placeholder="Full Name"/>
             </div>
             <div class="col-lg-12 col-xs-12 has-success">
             <label class="checkbox-inline input-lg">
-                <input type="checkbox" id="inlineCheckbox1" value="0"> Male
-            </label>
 
+                <input type="radio" name="gender" id="inlineCheckbox1" value="0" checked> Male
+            </label>
                 <label class="checkbox-inline input-lg">
-                    <input type="checkbox" id="inlineCheckbox2" value="1"> Female
+
+                    <input type="radio" name="gender" id="inlineCheckbox2" value="1"> Female
                 </label>
             </div>
                 <select name="state" class="form-control col-lg-10 col-xs-12">
@@ -82,18 +84,18 @@
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="street" id="stretId" placeholder="Street"/>
             </div>
-            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
-                <input type="text" class="form-control" name="zipcode" id="zipCodeId" placeholder="Zip Code"/>
+            <div class="form-group col-lg-12 col-xs-12 has-success">
+                <input type="number" class="form-control" name="zipCode" id="zipCodeId" pattern="[0-9]{5}" placeholder="Zip Code"/>
             </div>
-            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
-                <input type="text" class="form-control" name="birthYear" id="birthYearId" placeholder="Birth Year" required/>
+            <div class="form-group col-lg-12 col-xs-12 has-success ">
+                <input type="number" class="form-control" name="birthYear" id="birthYearId" pattern="[0-9]{5}" placeholder="Birth Year" required/>
             </div>
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="email" class="form-control" name="email" id="emailId" placeholder="Email" required />
             </div>
-            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
-                <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" pattern="(A-Z(a-z)[0,9],{,8})" required
-                title="Password must be atleast 8 characters and must have atleast a number and any characters from A-Z and a-z"/>
+            <div class="form-group col-lg-12 col-xs-12 has-success">
+                <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" <%--pattern="(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{6,}"--%> required
+                title="Password must be atleast 6 characters and must have atleast a number and any characters from A-Z and a-z"/>
             </div>
             <div class="form__wrapper--submit">
                 <div class="form__input-submit">
