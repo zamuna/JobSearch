@@ -10,6 +10,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 public interface LikeDao {
     Integer getLikeStatus(Integer userId,Integer postId);
     Integer getNumberOfLikes(Integer postId);
-    Like addLike(Integer userId,Integer postId);
-    Like deleteLike(Integer userId,Integer postId);
+    Boolean addLike(Integer userId,Integer postId);
+    Boolean deleteLike(Integer userId,Integer postId);
 }
