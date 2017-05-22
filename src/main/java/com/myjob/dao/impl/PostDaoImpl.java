@@ -20,6 +20,7 @@ public class PostDaoImpl implements PostDao {
         return null;
     }
 
+
     @Override
     public List<Post> getAll(Integer postType, Integer limit, Integer offset) {
         List<Post> posts = new ArrayList<>();
@@ -83,6 +84,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+
     public Boolean deleteByUserId(Integer userId, Integer postId) {
         String query = "DELETE FROM posts WHERE " + DbConstant.PostConstant.USER_ID + "=" + userId + " AND " +
                 DbConstant.PostConstant.POST_ID + "=" + postId
@@ -136,11 +138,12 @@ public class PostDaoImpl implements PostDao {
         System.out.println("limit:"+limit);
         System.out.println("offset:"+offset);*/
 
-       for (Post p : postDao.getAll(2, 10, 5)) {
+        for (Post p : postDao.getAll(2, 10, 5)) {
             System.out.println(p.getPostid() + " " + p.getPost());
         }
 
         /*deleteByUserId is working*/
-        postDao.deleteByUserId(2,1);
+        postDao.deleteByUserId(2, 1);
+
     }
 }
