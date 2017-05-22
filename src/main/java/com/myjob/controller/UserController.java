@@ -1,17 +1,15 @@
 package com.myjob.controller;
+
 import com.myjob.dao.UserDao;
 import com.myjob.dao.impl.UserDaoImpl;
 import com.myjob.model.User;
-import org.omg.CORBA.INTERNAL;
-/*import com.sun.java.util.jar.pack.Instruction;*/
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
-
-
 /**
  * Created by Rabin Shrestha on 5/21/2017.
  */
@@ -24,56 +22,60 @@ public class UserController extends HttpServlet {
         super.init();
         userDao = new UserDaoImpl();
     }
-@Override
+
+    @Override
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
 
         String operation = request.getParameter("operation");
         HttpSession loginSession = request.getSession();
-
-        if (request.getParameter("doSignIn")!=null)
-        {
-            System.out.println(" sign up request cought here !!");
+        // handle signin request
+        if (request.getParameter("doSignIn") != null) {
+            System.out.println(" sign in request cought here !!");
             String useremail = request.getParameter("userEmail");
             String password = request.getParameter("userPassword");
-            User newuser=tryLogin(useremail, password);
+            User newuser = tryLogin(useremail, password);
             if ((newuser) != null) {
                 loginSession.setAttribute("loggedInUser", newuser);
+                // after successful login , Opening newsfeed
+                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
                 System.out.println(" user is logged in");
+
             }
 
         }// Sign out operation
-        else if (request.getParameter("doSignOut")!=null) {
+        else if (request.getParameter("doSignOut") != null) {
             request.getSession().invalidate();
             System.out.println(" user signed out");
             // after user signout : should go to login page
-            request.getRequestDispatcher("login.jsp");
+            request.getRequestDispatcher("index.jsp").forward(request,response);
         }// sign up operation
-        else if (request.getParameter("doSignUp")!=null) {
-
-            System.out.println(" sign up request cought here !!");
-            User user = getUserInfoFromClient(request);
-            if (createNewUser(user) != null) {
-                request.setAttribute("userCreated", "True");
-                request.getRequestDispatcher("login.jsp");
-            }
-        } // user profile change operation
-        else if( request.getParameter("doUpdateUser")!=null)
+        else if (request.getParameter("doSignUp") != null)
         {
             User user = getUserInfoFromClient(request);
             if (createNewUser(user) != null) {
+                request.setAttribute("userCreated", "True");
+                System.out.println("New user created");
+                request.getRequestDispatcher("index.jsp").forward(request,response); // index page signIn page for here
+            }
+        } // user profile change operation
+        else if (request.getParameter("doUpdateUser") != null)
+        {
+            User user = getUserInfoFromClient(request);
+            if (createNewUser(user) != null) {
+                System.out.println("user updated success");
                 request.setAttribute("userUpdated", "True");
-                // request.getRequestDispatcher("login.jsp");
+                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
             }
         }// delete user
-        else if(request.getParameter("deleteUser")!=null)
+        else if (request.getParameter("deleteUser") != null)
         {   // this user id is of database id
-            Integer userid= Integer.parseInt(loginSession.getAttribute("user_id").toString());
+            Integer userid = Integer.parseInt(loginSession.getAttribute("user_id").toString());
             // if user delete operation is successful clear the session and redirect user to new login secreen
-            if(userDao.delete(userid))
-            {
+            if (userDao.delete(userid)) {
+                System.out.println("user deleted");
                 request.setAttribute("userDeleted", "True");
                 loginSession.invalidate();
-                request.getRequestDispatcher("login.jsp");
+                request.getRequestDispatcher("index.jsp");
             }
 
         }
@@ -87,7 +89,7 @@ public class UserController extends HttpServlet {
     private User getUserInfoFromClient(javax.servlet.http.HttpServletRequest request) {
 
 
-            User user = new User();
+        User user = new User();
         try {
             user.setFullname(request.getParameter("fullName"));
 
@@ -102,9 +104,8 @@ public class UserController extends HttpServlet {
             user.setPassword(request.getParameter("password"));
             user.setDatecreated(new Timestamp(System.currentTimeMillis()));
             user.setDateupdated(new Timestamp(System.currentTimeMillis()));
-        }catch (NumberFormatException ex)
-        {
-            System.out.println(" exception occur : "+ ex);
+        } catch (NumberFormatException ex) {
+            System.out.println(" exception occur : " + ex);
         }
         return user;
 

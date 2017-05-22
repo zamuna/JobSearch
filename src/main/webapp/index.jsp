@@ -50,7 +50,7 @@
 
             <div class="form__wrapper--submit">
               <div class="form__input-submit">
-                <button type="submit" name="submit" class="btn btn-block">Submit</button>
+                <button type="submit" name="submit" class="btn btn-block">Login</button>
               </div>
             </div>
 

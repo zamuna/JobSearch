@@ -29,9 +29,9 @@ public class PostController extends HttpServlet {
         postDao = new PostDaoImpl();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
-        String operation = request.getParameter("operation");
         HttpSession loginSession = request.getSession();
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
         if (logedInuser != null) {
@@ -40,18 +40,20 @@ public class PostController extends HttpServlet {
                 // if type=2 : display all job post seeking
                 Integer postType =  (request.getParameter("btnLoadAllJobSeeking") != null )? 2: 1;
                 writeAllPostListIntoGsson(postType, response);
+                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
                 return;
-
-            }
+             }
             else if (request.getParameter("addPost")!=null)
             {   // calling the function to add new post
                 addNewPost(logedInuser.getUserid(),request);
+                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
                 return;
             }
             else if (request.getParameter("updatePost")!=null)
             {   // calling the function to add new post
                 Integer postId=Integer.parseInt(request.getParameter("postId"));
                 updatePost(logedInuser.getUserid(),request);
+                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
                 return;
             }
             else if (request.getParameter("deletePost")!=null)
@@ -155,7 +157,7 @@ public class PostController extends HttpServlet {
     }
     //=====================================================
     // deliting the existing  post in to the server database
-    // if success, returnd deleted Post, else return null
+    // if success, returned deleted Post, else return null
     //=====================================================
     Boolean deletePost(Integer postId,HttpServletRequest request)
     {

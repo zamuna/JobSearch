@@ -9,7 +9,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment( Integer userid, Integer postid, String comment, Timestamp datecreated, Timestamp dateupdated) {
+    public Comment(Integer userid, Integer postid, String comment, Timestamp datecreated, Timestamp dateupdated) {
         this.userid = userid;
         this.postid = postid;
         this.comment = comment;
@@ -21,23 +21,6 @@ public class Comment {
     private Integer userid;
     private Integer postid;
     private String comment;
-
-    public Timestamp getDatecreated() {
-        return datecreated;
-    }
-
-    public void setDatecreated(Timestamp datecreated) {
-        this.datecreated = datecreated;
-    }
-
-    public Timestamp getDateupdated() {
-        return dateupdated;
-    }
-
-    public void setDateupdated(Timestamp dateupdated) {
-        this.dateupdated = dateupdated;
-    }
-
     private Timestamp datecreated;
     private Timestamp dateupdated;
 
@@ -73,5 +56,19 @@ public class Comment {
         this.comment = comment;
     }
 
+    public Timestamp getDatecreated() {
+        return datecreated;
+    }
 
+    public void setDatecreated(Timestamp datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public Timestamp getDateupdated() {
+        return dateupdated;
+    }
+
+    public void setDateupdated(Timestamp dateupdated) {
+        this.dateupdated = dateupdated;
+    }
 }
