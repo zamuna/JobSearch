@@ -159,7 +159,7 @@ public class PostController extends HttpServlet {
     //=====================================================
     Boolean deletePost(Integer postId,HttpServletRequest request)
     {
-       
+
         if (postDao.delete(postId) != null)
         {
             System.out.println("  post deleted successfully !!");
