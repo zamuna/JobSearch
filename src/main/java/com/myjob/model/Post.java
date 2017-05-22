@@ -6,7 +6,10 @@ import java.sql.Timestamp;
  * Created by manozct on 5/20/2017.
  */
 public class Post {
-    public Post( Integer userid, String post, Integer posttype, Timestamp datecreated, Timestamp dateupdated) {
+    public Post() {
+    }
+
+    public Post(Integer userid, String post, Integer posttype, Timestamp datecreated, Timestamp dateupdated) {
 
         this.userid = userid;
         this.post = post;
@@ -14,8 +17,7 @@ public class Post {
         this.datecreated = datecreated;
         this.dateupdated = dateupdated;
     }
-public Post()
-{}
+
     private Integer postid;
     private Integer userid;
     private String post;

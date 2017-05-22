@@ -5,7 +5,7 @@ package com.myjob.dao;
  */
 public class DbConstant {
     //User Db fields
- public static  class UserConstant {
+    public static class UserConstant {
         public static final String USER_ID = "userid";
         public static final String FULLNAME = "fullname";
         public static final String GENDER = "gender";
@@ -20,8 +20,33 @@ public class DbConstant {
         public static final String DATEUPDATED = "dateupdated";
 
     }
-    public static class LikeConstant{
+
+    public static class PostConstant {
+        public static final String POST_ID = "postid";
+        public static final String USER_ID = "userid";
+        public static final String POST = "post";
+        public static final String POST_TYPE = "posttype";
+        public static final String DATECREATED = "datecreated";
+        public static final String DATEUPDATED = "dateupdated";
+    }
+    public  static class CommentConstant{
+        public static final String COMMENT_ID="commentid";
+        public static final String USER_ID="userid";
+        public static final String POST_ID="postid";
+        public static final String COMMENT="comment";
+        public static final String DATECREATED="datecreated";
+        public static final String DATEUPDATED="dateupdated";
 
     }
+    public static class LikeConstant{
+        public static final String LIKE_ID="likeid";
+        public static final String USER_ID="userid";
+        public static final String POST_ID="postid";
+        public static final String DATECREATED="datecreated";
+        public static final String DATEUPDATED="dateupdated";
+
+    }
+
+
 
 }

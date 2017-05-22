@@ -1,5 +1,7 @@
 package com.myjob.model;
 
+import java.sql.Timestamp;
+
 /**
  * Created by manozct on 5/20/2017.
  */
@@ -7,12 +9,37 @@ public class Comment {
     public Comment() {
     }
 
+    public Comment( Integer userid, Integer postid, String comment, Timestamp datecreated, Timestamp dateupdated) {
+        this.userid = userid;
+        this.postid = postid;
+        this.comment = comment;
+        this.datecreated = datecreated;
+        this.dateupdated = dateupdated;
+    }
+
     private Integer commentid;
     private Integer userid;
     private Integer postid;
     private String comment;
-    private String datecreated;
-    private String dateupdated;
+
+    public Timestamp getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(Timestamp datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public Timestamp getDateupdated() {
+        return dateupdated;
+    }
+
+    public void setDateupdated(Timestamp dateupdated) {
+        this.dateupdated = dateupdated;
+    }
+
+    private Timestamp datecreated;
+    private Timestamp dateupdated;
 
     public Integer getCommentid() {
         return commentid;
@@ -46,19 +73,5 @@ public class Comment {
         this.comment = comment;
     }
 
-    public String getDatecreated() {
-        return datecreated;
-    }
 
-    public void setDatecreated(String datecreated) {
-        this.datecreated = datecreated;
-    }
-
-    public String getDateupdated() {
-        return dateupdated;
-    }
-
-    public void setDateupdated(String dateupdated) {
-        this.dateupdated = dateupdated;
-    }
 }
