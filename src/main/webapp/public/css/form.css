@@ -184,7 +184,11 @@ p {
     margin-right: auto;
     border: 1px solid gray;
     overflow: hidden;
-    padding: 2em;
+    /*padding: 2em;*/
+}
+select.form-control.input-lg.col-lg-10.col-xs-12.input-group-sm {
+    width: 95% !important;
+    margin-left: 16px !important;
 }
 
 
