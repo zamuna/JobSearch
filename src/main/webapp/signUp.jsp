@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp"%>
 <%@include file="nav.jsp"%>
-<main class="container">
+<main class="container-fluid">
     <section class="sign_up card">
         <h3 class=" glyphicon glyphicon-user" > SignUp</h3>
         <form class="form" method="post" action="UserController" autocomplete="on">
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
-
                     <input type="text" class="form-control" name="fullName" id="fullNameId" placeholder="Full Name"/>
             </div>
             <div class="col-lg-12 col-xs-12 has-success">
@@ -19,7 +18,7 @@
                     <input type="radio" name="gender" id="inlineCheckbox2" value="1"> Female
                 </label>
             </div>
-                <select name="state" class="form-control col-lg-10 col-xs-12">
+                <select name="state" class="form-control input-lg col-lg-10 col-xs-12 input-group-sm">
                     <option value="" disabled selected>Select State</option>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
@@ -73,11 +72,6 @@
                     <option value="WI">WI</option>
                     <option value="WY">WY</option>
                 </select>
-
-
-            <%--<div class="form-group col-lg-12 has-success">--%>
-                <%--<input type="text" class="form-control" name="state" id="stateId" placeholder="State"/>--%>
-            <%--</div>--%>
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="city" id="cityId" placeholder="City"/>
             </div>

@@ -6,7 +6,7 @@
 
       <section class="card fadeInLeft">
 
-        <h3 class=" glyphicon glyphicon-user" > Login Form</h3>
+        <h3 class=" glyphicon glyphicon-user" > Login</h3>
 
         <form action="UserController" class="form" method="post">
           <div class="form__wrapper" >
@@ -27,11 +27,12 @@
 
           <div class="form__wrapper--submit">
             <div class="form__input-submit">
-              <button type="submit" name="doSignIn" class="btn btn-block btn-primary">Submit</button>
+              <button type="submit" name="doSignIn" class="btn btn-block btn-primary">Login</button>
             </div>
           </div>
         </form>
-        <div class="text-center text-small" ><a href="#forgotPswd" class="modal__toggle">Forgot Password ?</a></div>
+        <div class="text-center text-small" ><a href="signUp.jsp" class="btn">Sign up</a></div>
+        <div class="text-center " ><a href="#forgotPswd" class="modal__toggle">Forgot Password ?</a></div>
 
         <div class="modal" id="forgotPswd">
           <a href="#" class="modal--close modal__toggle">&times;</a>

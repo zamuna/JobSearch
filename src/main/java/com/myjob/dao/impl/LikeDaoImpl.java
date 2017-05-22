@@ -14,7 +14,20 @@ import java.sql.Statement;
  */
 public class LikeDaoImpl implements LikeDao {
     public Integer getLikeStatus(Integer userId, Integer postId) {
-        return null;
+        Statement stmt=null;
+        String readQuery = "SELECT * from likes where " + DbConstant.LikeConstant.POST_ID + "=" + postId + " and "+DbConstant.LikeConstant.USER_ID +"=" + userId+";";
+        try {
+            stmt = DBconnection.getConnection().createStatement();
+            System.out.println("the query: " + readQuery);
+            ResultSet rs = stmt.executeQuery(readQuery);
+            if(rs.next()){
+                return 1;
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public Integer getNumberOfLikes(Integer postId) {
@@ -83,12 +96,12 @@ public class LikeDaoImpl implements LikeDao {
     public static void main(String[] args) {
         LikeDaoImpl likeDao = new LikeDaoImpl();
          /*add is working*/
-        likeDao.addLike(1, 5);
+//        likeDao.addLike(1, 5);
 
         /*delete is working*/
-        likeDao.deleteLike(1, 2);
+//        likeDao.deleteLike(1, 2);
 
         /*getNumberOfLikes is working*/
-        System.out.println(likeDao.getNumberOfLikes(2));
+        System.out.println(likeDao.getLikeStatus(1,2));
     }
 }
