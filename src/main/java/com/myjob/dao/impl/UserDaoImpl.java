@@ -95,7 +95,7 @@ public class UserDaoImpl implements UserDao {
 
             Integer rowEffected = stmt.executeUpdate(query);
             if (rowEffected > 0) {
-                return user;
+                return getLastUser();
             }
             stmt.close();
         } catch (SQLException e) {
@@ -211,6 +211,33 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
+    @Override
+    public User getLastUser() {
+        //   SELECT fields FROM table ORDER BY id DESC LIMIT 1;
+        User user = null;
+        Statement stmt = null;
+        // Reading last User Record
+        String readQuery = "SELECT * from users" + DbConstant.UserConstant.USER_ID  + " DESC LIMIT 1";
+        try {
+            stmt = DBconnection.getConnection().createStatement();
+            System.out.println("the query: " + readQuery);
+            ResultSet rs = stmt.executeQuery(readQuery);
+            if (rs.next()) {
+                user = new User();
+                user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
+                user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
+                user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
+                user.setState(rs.getString(DbConstant.UserConstant.STATE));
+                user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
 
     /*for testing*/
     public static void main(String[] args) {

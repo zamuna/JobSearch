@@ -37,7 +37,7 @@ public class UserController extends HttpServlet {
             if ((newuser) != null) {
                 loginSession.setAttribute("loggedInUser", newuser);
                 // after successful login , Opening newsfeed
-                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
+                request.getRequestDispatcher("home.jsp").forward(request,response);
                 System.out.println(" user is logged in");
 
             }
@@ -64,7 +64,7 @@ public class UserController extends HttpServlet {
             if (createNewUser(user) != null) {
                 System.out.println("user updated success");
                 request.setAttribute("userUpdated", "True");
-                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
+                request.getRequestDispatcher("home.jsp").forward(request,response);
             }
         }// delete user
         else if (request.getParameter("deleteUser") != null)
