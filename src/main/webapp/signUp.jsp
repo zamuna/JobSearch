@@ -2,22 +2,23 @@
 <%@include file="header.jsp"%>
 <%@include file="nav.jsp"%>
 <main class="container">
-    <section class="sign_up card padding-tb">
+    <section class="sign_up card">
         <h3 class=" glyphicon glyphicon-user" > SignUp</h3>
         <form class="form" method="post" action="UserController">
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                     <input type="text" class="form-control" name="fullName" id="fullNameId" placeholder="Full Name"/>
             </div>
-            <div class="col-lg-12 has-success input-lg">
+            <div class="col-lg-12 col-xs-12 has-success">
             <label class="checkbox-inline input-lg">
-                <input type="checkbox" id="inlineCheckbox1" value="option1"> Male
+                <input type="checkbox" id="inlineCheckbox1" value="0"> Male
             </label>
 
                 <label class="checkbox-inline input-lg">
-                    <input type="checkbox" id="inlineCheckbox2" value="option2"> Female
+                    <input type="checkbox" id="inlineCheckbox2" value="1"> Female
                 </label>
             </div>
-                <select name="state" class="form-control col-lg-10">
+                <select name="state" class="form-control col-lg-10 col-xs-12">
+                    <option value="" disabled selected>Select State</option>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
                     <option value="AZ">AZ</option>
@@ -75,28 +76,28 @@
             <%--<div class="form-group col-lg-12 has-success">--%>
                 <%--<input type="text" class="form-control" name="state" id="stateId" placeholder="State"/>--%>
             <%--</div>--%>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="city" id="cityId" placeholder="City"/>
             </div>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="street" id="stretId" placeholder="Street"/>
             </div>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="zipcode" id="zipCodeId" placeholder="Zip Code"/>
             </div>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="text" class="form-control" name="birthYear" id="birthYearId" placeholder="Birth Year" required/>
             </div>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="email" class="form-control" name="email" id="emailId" placeholder="Email" required />
             </div>
-            <div class="form-group col-lg-12 has-success input-lg">
+            <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
                 <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" pattern="(A-Z(a-z)[0,9],{,8})" required
                 title="Password must be atleast 8 characters and must have atleast a number and any characters from A-Z and a-z"/>
             </div>
             <div class="form__wrapper--submit">
                 <div class="form__input-submit">
-                    <button type="submit" name="doSignUp" class="btn btn-block btn-primary">Sign Up </button>
+                    <button type="submit" name="doCreateUser" class="btn btn-block btn-primary">Sign Up </button>
                 </div>
             </div>
 
