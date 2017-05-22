@@ -1,67 +1,106 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zamuna
-  Date: 5/19/2017
-  Time: 10:38 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Sign Up</title>
-</head>
-<body>
-<main>
-    <section class="site-container padding-tb">
+<%@include file="header.jsp"%>
+<%@include file="nav.jsp"%>
+<main class="container">
+    <section class="sign_up card padding-tb">
+        <h3 class=" glyphicon glyphicon-user" > SignUp</h3>
+        <form class="form" method="post" action="UserController">
+            <div class="form-group col-lg-12 has-success input-lg">
+                    <input type="text" class="form-control" name="fullName" id="fullNameId" placeholder="Full Name"/>
+            </div>
+            <div class="col-lg-12 has-success input-lg">
+            <label class="checkbox-inline input-lg">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> Male
+            </label>
 
-        <section class="card wow fadeInLeft">
+                <label class="checkbox-inline input-lg">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2"> Female
+                </label>
+            </div>
+                <select name="state" class="form-control col-lg-10">
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="DC">DC</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                </select>
 
-            <h3 class="wow fadeInDown glyphicon glyphicon-user" data-wow-delay="0.4s"> Login Form</h3>
 
-            <form action="#" class="form" method="post">
-                <div class="form__wrapper wow fadeInDown" data-wow-delay="0.5s">
-                    <input type="text" class="form__input" id="fName" name="fName">
-                    <label class="form__label" for="fName">
-                        <span class="form__label-content">First Name</span>
-                    </label>
+            <%--<div class="form-group col-lg-12 has-success">--%>
+                <%--<input type="text" class="form-control" name="state" id="stateId" placeholder="State"/>--%>
+            <%--</div>--%>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="text" class="form-control" name="city" id="cityId" placeholder="City"/>
+            </div>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="text" class="form-control" name="street" id="stretId" placeholder="Street"/>
+            </div>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="text" class="form-control" name="zipcode" id="zipCodeId" placeholder="Zip Code"/>
+            </div>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="text" class="form-control" name="birthYear" id="birthYearId" placeholder="Birth Year" required/>
+            </div>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="email" class="form-control" name="email" id="emailId" placeholder="Email" required />
+            </div>
+            <div class="form-group col-lg-12 has-success input-lg">
+                <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" pattern="(A-Z(a-z)[0,9],{,8})" required
+                title="Password must be atleast 8 characters and must have atleast a number and any characters from A-Z and a-z"/>
+            </div>
+            <div class="form__wrapper--submit">
+                <div class="form__input-submit">
+                    <button type="submit" name="doSignUp" class="btn btn-block btn-primary">Sign Up </button>
                 </div>
-                <div class="form__wrapper wow fadeInDown" data-wow-delay="0.5s">
-                    <input type="text" class="form__input" id="lName" name="lName">
-                    <label class="form__label" for="lName">
-                        <span class="form__label-content">Last Name</span>
-                    </label>
-                </div>
-                <div class="form__wrapper checkbox-inline">
-                    <input type="checkbox" class="" id="genderMale" name="gender"/>
-                    <label class="form__label-content" for="genderMale">
-                        <span class="form__label-content">Male</span>
-                    </label>
-                    <input type="checkbox" class="" id="genderFemale" name="gender"/>
-                    <label class="form__label-content" for="genderFemale">
-                        <span class="form__label-content">Male</span>
-                    </label>
-                </div>
+            </div>
 
-                <div class="form__wrapper wow fadeInDown" data-wow-delay="0.6s">
-                    <input type="password" class="form__input" id="password"  name="password">
-                    <label class="form__label" for="password">
-                        <span class="form__label-content">Password</span>
-                    </label>
-
-                </div>
-
-                <div class="form__wrapper--submit wow fadeInLeft" data-wow-delay="0.7s">
-                    <div class="form__input-submit">
-                        <button type="submit" name="submit" class="btn btn-block">Submit</button>
-                    </div>
-                </div>
-            </form>
-            <div class="text-center text-small wow fadeInLeft" data-wow-delay="0.8s"><a href="#" class="modal__toggle">Forgot Password ?</a></div>
-
-
-        </section><!-- /card -->
-
+        </form>
     </section>
 </main>
-</body>
-</html>
+<%@include file="footer.jsp"%>
