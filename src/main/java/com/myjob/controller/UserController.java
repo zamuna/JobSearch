@@ -23,32 +23,33 @@ public class UserController extends HttpServlet {
         super.init();
         userDao = new UserDaoImpl();
     }
-
+@Override
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+
         String operation = request.getParameter("operation");
         HttpSession loginSession = request.getSession();
 
-        if (operation.equals("doSignIn"))
+        if (request.getParameter("doSignIn")!=null)
         {
             String useremail = request.getParameter("userEmail");
             String password = request.getParameter("userPassword");
             User newuser=tryLogin(useremail, password);
             if ((newuser) != null) {
-                loginSession.setAttribute("loggedInUser", "newUser");
+                loginSession.setAttribute("loggedInUser", newuser);
             }
 
-        } else if (operation.equals("doSignout")) {
+        } else if (request.getParameter("doSignOut")!=null) {
             request.getSession().invalidate();
             // after user signout : should go to login page
             request.getRequestDispatcher("login.jsp");
-        } else if (operation.equals("doCreateUser")) {
-            User user = getUserInfoFromClient(request);
+        } else if (request.getParameter("doCreateUser")!=null) {
 
+            User user = getUserInfoFromClient(request);
             if (createNewUser(user) != null) {
                 request.setAttribute("userCreated", "True");
                 request.getRequestDispatcher("login.jsp");
             }
-        } else if (operation.equals("doUpdateUser"))
+        } else if( request.getParameter("doUpdateUser")!=null)
         {
             User user = getUserInfoFromClient(request);
             if (createNewUser(user) != null) {
@@ -56,10 +57,8 @@ public class UserController extends HttpServlet {
                 // request.getRequestDispatcher("login.jsp");
             }
         }
-        else if(operation.equals("deleteUser"))
-        {
-
-            // this user id is of database id
+        else if(request.getParameter("deleteUser")!=null)
+        {   // this user id is of database id
             Integer userid= Integer.parseInt(loginSession.getAttribute("user_id").toString());
             // if user delete operation is successful clear the session and redirect user to new login secreen
             if(userDao.delete(userid))
