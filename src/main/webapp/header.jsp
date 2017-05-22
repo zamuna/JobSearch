@@ -16,6 +16,7 @@
     <link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     <link href="<c:url value="/public/css/main.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/public/css/form.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/public/css/newsfeed.css"/>" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
 
