@@ -6,6 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* Basics Styles */
 a {
     text-decoration: none;
@@ -177,6 +178,13 @@ p {
     transform: translate3d(0, -65%, 0);
 }
 
-
+.sign_up{
+    width:40%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid gray;
+    overflow: hidden;
+    padding: 2em;
+}
 
 
