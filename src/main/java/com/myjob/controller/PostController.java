@@ -75,7 +75,7 @@ public class PostController extends HttpServlet {
     //=====================================================
     void writeAllPostListIntoGsson(Integer postType, HttpServletResponse response) {
 
-        List<Post> listOfPosts = postDao.getAll(postType);
+        List<Post> listOfPosts = postDao.getAll(postType,25,0);
 
         // creating Gsoon file from listOfPost
         String listOfPostsGson = new Gson().toJson(listOfPosts);
