@@ -163,26 +163,36 @@ public class UserDaoImpl implements UserDao {
     public User login(String userEmail, String pass) {
         if (userEmail == "" || userEmail == null || pass == "" || pass == null)
             return null;
-        User user = null;
+
+        User user = new User();
         Statement stmt = null;
-        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "'";
-        System.out.println("the login query is "+readQuery);
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "' LIMIT 1";
+        System.out.println("the login query is\n "+readQuery);
 
 
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
-            while (rs.next()) {
-                user = new User();
+            if ( rs.next() ){
+                System.out.println(" record found");
+                user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
                 user.setState(rs.getString(DbConstant.UserConstant.STATE));
                 user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+                user.setBirthyear(rs.getInt(DbConstant.UserConstant.BIRTHYEAR));
+                user.setZipcode(rs.getInt(DbConstant.UserConstant.ZIP_CODE));
+                user.setStreet(rs.getString(DbConstant.UserConstant.STREET));
             }
             stmt.close();
         } catch (SQLException e) {
+            System.out.println("");
             e.printStackTrace();
+        }
+        catch (NullPointerException ne)
+        {
+            System.out.println("Null pointer ex on login :"+ne.getMessage());
         }
         return user;
 
@@ -192,18 +202,21 @@ public class UserDaoImpl implements UserDao {
     public User getUserByEmail(String useremail) {
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + useremail + "';";
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + useremail + "' LIMIT 1;";
         System.out.println("Check if user with given Email query  :" +readQuery);
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
-            while (rs.next()) {
-                user = new User();
+            if (rs.next()) {
+                user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
                 user.setState(rs.getString(DbConstant.UserConstant.STATE));
                 user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+                user.setBirthyear(rs.getInt(DbConstant.UserConstant.BIRTHYEAR));
+                user.setZipcode(rs.getInt(DbConstant.UserConstant.ZIP_CODE));
+                user.setStreet(rs.getString(DbConstant.UserConstant.STREET));
             }
             stmt.close();
         } catch (SQLException e) {
@@ -215,21 +228,24 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getLastUser() {
         //   SELECT fields FROM table ORDER BY id DESC LIMIT 1;
-        User user = null;
+        User user = new User();
         Statement stmt = null;
         // Reading last User Record
         String readQuery = "SELECT * from users" + DbConstant.UserConstant.USER_ID  + " DESC LIMIT 1";
         try {
             stmt = DBconnection.getConnection().createStatement();
-            System.out.println("the query: " + readQuery);
+            System.out.println("return last user query is: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             if (rs.next()) {
-                user = new User();
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
                 user.setState(rs.getString(DbConstant.UserConstant.STATE));
                 user.setCity(rs.getString(DbConstant.UserConstant.CITY));
+                user.setBirthyear(rs.getInt(DbConstant.UserConstant.BIRTHYEAR));
+                user.setZipcode(rs.getInt(DbConstant.UserConstant.ZIP_CODE));
+                user.setStreet(rs.getString(DbConstant.UserConstant.STREET));
+
             }
             stmt.close();
         } catch (SQLException e) {

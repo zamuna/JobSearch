@@ -39,7 +39,10 @@ public class UserController extends HttpServlet {
                 // after successful login , Opening newsfeed
                 request.getRequestDispatcher("home.jsp").forward(request,response);
                 System.out.println(" user is logged in");
-
+            }else
+            {
+                System.out.println(" user invalid !!");
+                request.getRequestDispatcher("index.jsp").forward(request,response);
             }
 
         }// Sign out operation
