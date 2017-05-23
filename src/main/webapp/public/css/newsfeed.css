@@ -1,4 +1,10 @@
+/*.mainContainer
+{
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 3px;
 
+}
 .jobDetailsContainer
 {
     font: 95% Arial, Helvetica, sans-serif;
@@ -9,7 +15,7 @@
     border-radius: 15px;
     overflow: hidden;
 
-}
+}*/
 #like{
     text-align: left;
 }
@@ -26,26 +32,12 @@
     margin: 5px;
 
 }
-#leftNavigation {
-    float: left;
-    position: fixed;
-    margin: 0px;
-    margin-right: 1%;
-    margin-top: 1%;
-    padding: 1%;
-    border-radius: 15px;
-    /*height: auto;*/
-    width: 17%;
-    min-height: 50%;
-    border: solid 1px darkseagreen;
-}
 
-#asideRight {
+.main-post-container {
     border: solid 1px darkseagreen;
     border-radius: 15px;
     margin-left: 1%;
     clear: right;
-    width: 100%;
     padding: 10px;
 }
 

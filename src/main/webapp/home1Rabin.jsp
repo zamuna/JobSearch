@@ -62,42 +62,31 @@
 
         <!--row div starts-->
         <c:forEach items="${posts}" var="post">
-            <div class="row">
+
+            <div class="row" xmlns:c="http://www.w3.org/1999/html">
                 <article class="col-md-12  col-centered article-container">
                     <header class="clearfix">
                         <img class="img-responsive" src="http://lorempixel.com/75/75" alt="profile-picture"/>
-                        <h1>${post.postedby}
+                        <h1>${post.postedBy}
                             <br>
                             <small>Posted on: ${post.datecreated}</small>
                         </h1>
-                        <p>${post.postcontent}</p>
+                        <p>${post.post}</p>
                     </header>
-                        <%--<img class="img-responsive" src="http://lorempixel.com/500/500" alt="post-picture"/>--%>
+
+
                     <footer>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-link"><span
-                                    class="glyphicon glyphicon-heart-empty"></span>
-                                Like <span class="badge">${post.totallikes}</span></button>
-                            <button id="comment-btn" type="button" class="btn btn-link"><span
-                                    class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4</span>
+                            <button type="button" value="${post.postid}" class="btn btn-link">
+                                <span class="glyphicon glyphicon-heart-empty"></span>Like
+                                <span class="badge">${post.noOfLikes}</span>
                             </button>
-                        </div>
-                        <div id="comments">
-                            <ul class="list-group">
-                                <li class="list-group-item">${post.likedByMe}</li>
-                                <li class="list-group-item">Comments by one</li>
-                                <li class="list-group-item">
-                                    <form>
-                                        <input type="text" name="comment" placeholder="comment..."/>
-                                        <input type="submit"
-                                               class="btn btn-default"
-                                               value="Done">
-                                    </form>
-                                </li>
-                            </ul>
+
+                            <button id="comment-btn1" type="button" value="${post.postid}" class="btn btn-link" >
+                                <span class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4
+                                </span></button>
                         </div>
                     </footer>
-
                 </article>
             </div>
         </c:forEach>

@@ -42,10 +42,12 @@ public class UserController extends HttpServlet {
 
                 System.out.println(" user is logged in");
                 // after successful login , perform load all post in page and then forward to home page
-                request.setAttribute("LoadAllPost","TRUE");
 
+               // response.sendRedirect("home1Rabin.jsp");
+                request.setAttribute("LoadAllPost",true);
                 request.getRequestDispatcher("/PostController").forward(request,response);
-                //request.getRequestDispatcher("home.jsp").forward(request,response);
+
+                //request.getRequestDispatcher("home.jsp").forward(request,response);*/
             }else
             {
                 System.out.println(" user invalid !!");

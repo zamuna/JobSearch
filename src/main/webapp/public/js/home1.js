@@ -5,8 +5,6 @@
 $(document).ready(function () {
 
 
-
-
     $("#profile-menu").click(function (e) {
         $('#profile').css('display', 'block');
         $("#profile").delay(100).fadeIn(100);
@@ -54,37 +52,58 @@ $(document).ready(function () {
     $("#comment").click(function (e) {
         e.preventDefault();
 
-        $.post("/PostController", {"postContent": $("#update-status-textarea").val(),"addPost":"TRUE","PostType":1}).done(function (response) {
+        $.post("/PostController", {
+            "postContent": $("#update-status-textarea").val(),
+            "addPost": "TRUE",
+            "PostType": 1
+        }).then(function (response) {
+            console.log(" RESPONSED BACK");
+            console.log(response[0]);
+            console.log(response[1]);
+            let map = JSON.parse(response);
+            console.log(map.Status);
+            if (map.Status === "success") {
+                console.log(map);
+                //alert("data is =>"+map.post)
+                let post = map.post;
+                //  alert(post);
+                let color = "coral"
+                if (post.isLikedByme == "true") {
+                    color = "blue";
+                }
+                else
 
-          alert(response.Status);
 
-            if (response.Status === "success") {
-                alert("data is =>"+response.post)
-                let post = JSON.parse(response.post);
+                    $("#update-status-textarea").val('');
 
-                $("#update-status-textarea").val("");
-
-                const content = `<div class="row">
+                const content = `<div class="row" xmlns:c="http://www.w3.org/1999/html">
                     <article class="col-md-12  col-centered article-container">
                         <header class="clearfix">
                             <img class="img-responsive" src="http://lorempixel.com/75/75" alt="profile-picture"/>
-                            <h1>${post.PostedBy}
+                            <h1>${post.postedBy}
                                 <br>
                                 <small>Posted on: ${post.datecreated}</small>
                             </h1>
                             <p>${post.post}</p>
                         </header>
+                       
                         
                         <footer>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-heart-empty"></span>Like <span class="badge">${post.noOfLikes} is liked $("isLikedByme")</span></button>
-                                <button id="comment-btn1" type="button" class="btn btn-link"><span class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4</span></button>
+                             <button type="button" value="${post.postid}" class="btn btn-link">
+                                 <span class="glyphicon glyphicon-heart-empty"></span>Like
+                                 <span class="badge">${post.noOfLikes}</span>
+                                </button>
+                                
+                                <button id="comment-btn1" type="button" value="${post.postid}" class="btn btn-link" >
+                                <span class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4
+                                </span></button>
                             </div>
                         </footer>
                     </article>
                     </div>`;
-                alert(content);
-                $(content).prepend($("#update-status-form")).delay( 100 ).fadeIn(200);
+
+                $("#update-status-form").append(content).delay(100).fadeIn(200);
 
             } else {
                 alert(" :[ Something went wrong")

@@ -41,7 +41,7 @@ public class PostController extends HttpServlet {
         if (logedInuser != null) {
             System.out.println(" post controller called");
             System.out.println(request.getParameter("LoadAllPost"));
-            if (request.getParameter("LoadAllPost")!=null) {
+            if ((Boolean)request.getAttribute("LoadAllPost")) {
                 // if job post Type is 1 : display all job post offering
                 // if type=2 : display all job post seeking
                 System.out.println("Load ALL post request caught");
@@ -54,7 +54,7 @@ public class PostController extends HttpServlet {
 
                 // writing json data as response
                 System.out.println("the post details received are :"+postDetailGson);
-                PrintWriter out = null;
+               /* PrintWriter out = null;
                 try {
                     out = response.getWriter();
                     out.write(new Gson().toJson(jsonData));
@@ -62,9 +62,11 @@ public class PostController extends HttpServlet {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                out.close();
+                out.close();*/
+
                 System.out.println("Loading all post on page");
-                request.getRequestDispatcher("home.jsp").forward(request,response);
+                request.setAttribute("allPost",new Gson().toJson(jsonData));
+                request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
 
              }
              //Adding new post case :
@@ -80,6 +82,8 @@ public class PostController extends HttpServlet {
                 jsonData.put("post",addedLastRow);
                 jsonData.put("Status","success");
                 System.out.println("Gson data ==========>\n"+new Gson().toJson(jsonData));
+
+                loginSession.setAttribute("posts",new Gson().toJson(jsonData));
                 response.getWriter().write(new Gson().toJson(jsonData));
                 request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
 
