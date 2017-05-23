@@ -69,7 +69,7 @@ public class LikeController extends HttpServlet {
                     }
                     arr[1]=likeDao.getNumberOfLikes(postId).toString();
                     response.getWriter().write(arr[0]);
-                    response.getWriter().write(arr[0]);
+                    response.getWriter().write(arr[1]);
                     System.out.println("Response data is: "+arr[0]);
                     System.out.println("total like is ==>"+arr[1]);
                 }

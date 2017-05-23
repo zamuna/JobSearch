@@ -15,11 +15,9 @@
                     <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Login</a></li>
                     <li><a href="#">SignUp</a></li>
-                    <%--<c:if test="loggedInUser  null">--%>
+                    <c:if test="logedInuser ne null">
                         <li><a href="#" id="loggedUserName">${loggedInUser.fullname}</a></li>
-
-                    <%--</c:if>--%>
-
+                    </c:if>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
