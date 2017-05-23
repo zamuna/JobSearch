@@ -17,6 +17,7 @@
                     <li><a href="#">SignUp</a></li>
                     <%--<c:if test="loggedInUser  null">--%>
                         <li><a href="#" id="loggedUserName">${loggedInUser.fullname}</a></li>
+
                     <%--</c:if>--%>
 
                 </ul>

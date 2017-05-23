@@ -110,6 +110,29 @@
                     </section>
                 </section>
 
+<main class="main-container container newsfeed_main">
+        <div class="row-fluid">
+            <section class="col-lg-12 col-xs-12">
+                <aside class="col-lg-4 col-xs-4 right">
+                <pre>
+                Hello this is meksvnDKL,jnvbfkljnklf
+                ekdjmfLKSJDMVKL
+                </pre>
+                </aside>
+                <aside class="col-lg-8 col-xs-8 left">
+                <pre>
+                Hello this is meksvnDKL,jnvbfkljnklf
+                ekdjmfLKSJDMVKL
+
+                Hello this is meksvnDKL,jnvbfkljnklf
+                ekdjmfLKSJDMVKL
+                </pre>
+                </aside>
+
+            </section>
+
+        </div>
+
 
 
 </main>
