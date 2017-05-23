@@ -66,7 +66,7 @@ public class PostController extends HttpServlet {
 
                 System.out.println("Loading all post on page");
                 request.setAttribute("allPost",new Gson().toJson(jsonData));
-                request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
+                request.getRequestDispatcher("home.jsp").forward(request,response);
 
              }
              //Adding new post case :
@@ -85,7 +85,7 @@ public class PostController extends HttpServlet {
 
                 loginSession.setAttribute("posts",new Gson().toJson(jsonData));
                 response.getWriter().write(new Gson().toJson(jsonData));
-                request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
+                request.getRequestDispatcher("home.jsp").forward(request,response);
 
 
             }

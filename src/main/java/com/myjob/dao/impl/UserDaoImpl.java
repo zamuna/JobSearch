@@ -95,7 +95,7 @@ public class UserDaoImpl implements UserDao {
 
             Integer rowEffected = stmt.executeUpdate(query);
             if (rowEffected > 0) {
-                return getLastUser();
+                return user;
             }
             stmt.close();
         } catch (SQLException e) {
@@ -163,37 +163,37 @@ public class UserDaoImpl implements UserDao {
     public User login(String userEmail, String pass) {
         if (userEmail == "" || userEmail == null || pass == "" || pass == null)
             return null;
+<<<<<<< HEAD
 
+=======
+>>>>>>> f258908461d2e0dce68ee80937d9908a5769eaa7
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "' LIMIT 1";
-        System.out.println("the login query is\n "+readQuery);
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "'";
+        System.out.println("the login query is "+readQuery);
 
 
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
+<<<<<<< HEAD
             if ( rs.next() ){
                 user=new User();
                 System.out.println(" record found");
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
+=======
+            while (rs.next()) {
+                user = new User();
+>>>>>>> f258908461d2e0dce68ee80937d9908a5769eaa7
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
                 user.setState(rs.getString(DbConstant.UserConstant.STATE));
                 user.setCity(rs.getString(DbConstant.UserConstant.CITY));
-                user.setBirthyear(rs.getInt(DbConstant.UserConstant.BIRTHYEAR));
-                user.setZipcode(rs.getInt(DbConstant.UserConstant.ZIP_CODE));
-                user.setStreet(rs.getString(DbConstant.UserConstant.STREET));
             }
             stmt.close();
         } catch (SQLException e) {
-            System.out.println("");
             e.printStackTrace();
-        }
-        catch (NullPointerException ne)
-        {
-            System.out.println("Null pointer ex on login :"+ne.getMessage());
         }
         return user;
 
@@ -203,12 +203,13 @@ public class UserDaoImpl implements UserDao {
     public User getUserByEmail(String useremail) {
         User user = null;
         Statement stmt = null;
-        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + useremail + "' LIMIT 1;";
+        String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + useremail + "';";
         System.out.println("Check if user with given Email query  :" +readQuery);
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
+<<<<<<< HEAD
             if (rs.next()) {
                 user=new User();
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
@@ -242,14 +243,14 @@ public class UserDaoImpl implements UserDao {
                 user= new User();
                 System.out.println("Last uset found");
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
+=======
+            while (rs.next()) {
+                user = new User();
+>>>>>>> f258908461d2e0dce68ee80937d9908a5769eaa7
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
                 user.setState(rs.getString(DbConstant.UserConstant.STATE));
                 user.setCity(rs.getString(DbConstant.UserConstant.CITY));
-                user.setBirthyear(rs.getInt(DbConstant.UserConstant.BIRTHYEAR));
-                user.setZipcode(rs.getInt(DbConstant.UserConstant.ZIP_CODE));
-                user.setStreet(rs.getString(DbConstant.UserConstant.STREET));
-
             }
             stmt.close();
         } catch (SQLException e) {
@@ -257,7 +258,6 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
-
 
     /*for testing*/
     public static void main(String[] args) {
