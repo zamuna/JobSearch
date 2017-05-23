@@ -28,41 +28,48 @@ public class CommentController extends HttpServlet {
         commentDao = new CommentDaoImpl();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("do Post in Comment COntroller");
+        System.out.println(request.getParameter("commentText"));
+
 
         HttpSession loginSession = request.getSession();
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
+        System.out.println(logedInuser);
         if (logedInuser != null) {
-            if (request.getParameter("addComment")!=null) {
-                Integer postId = Integer.parseInt(request.getParameter("postId")); // this post id is to be send from  javaScrip Ajax
-                Integer userId = logedInuser.getUserid();
-                String commentText = request.getParameter("commentText");
+            System.out.println("logged in sucesss");
 
-                Comment comment = new Comment();
-                comment.setPostid(postId);
-                comment.setUserid(userId);
-                comment.setComment(commentText);
-                comment.setDatecreated(new Timestamp(System.currentTimeMillis()));
-                comment.setDateupdated(new Timestamp(System.currentTimeMillis()));
-                try {
-                    Comment addedComment = commentDao.add(postId, comment);
-                    if (addedComment != null) {
-                        System.out.println("comment added successfully");
-                        System.out.println("added comment is :" + addedComment);
-                        String jsonComment = new Gson().toJson(addedComment);
-                        response.setContentType("application/json");
-                        response.setCharacterEncoding("UTF-8");
-                        // Adding json comment string in response
-                        response.getWriter().write(jsonComment);
-                    } else {
-                        System.out.println("Comment add operation failed !!");
-                    }
-                } catch (NullPointerException ex) {
-                    System.out.println(" null pointer ex on comment add: " + ex.getMessage());
+            Integer postId = Integer.parseInt(request.getParameter("postId")); // this post id is to be send from  javaScrip Ajax
+            Integer userId = logedInuser.getUserid();
+            System.out.println("text");
+            System.out.println("postID" + postId);
+            System.out.println("userId" + userId);
+            String commentText = request.getParameter("commentText");
+
+            Comment comment = new Comment();
+            comment.setPostid(postId);
+            comment.setUserid(userId);
+            comment.setComment(commentText);
+            comment.setDatecreated(new Timestamp(System.currentTimeMillis()));
+            comment.setDateupdated(new Timestamp(System.currentTimeMillis()));
+            try {
+                Comment addedComment = commentDao.add(postId, comment);
+                if (addedComment != null) {
+                    System.out.println("comment added successfully");
+                    System.out.println("added comment is :" + addedComment);
+                    String jsonComment = new Gson().toJson(addedComment);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    // Adding json comment string in response
+                    response.getWriter().write(jsonComment);
+                } else {
+                    System.out.println("Comment add operation failed !!");
                 }
-
+            } catch (NullPointerException ex) {
+                System.out.println(" null pointer ex on comment add: " + ex.getMessage());
             }
+
+            //}
 
         }
 

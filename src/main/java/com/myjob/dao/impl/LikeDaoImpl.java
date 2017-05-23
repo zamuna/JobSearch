@@ -31,25 +31,23 @@ public class LikeDaoImpl implements LikeDao {
     }
 
     public Integer getNumberOfLikes(Integer postId) {
-        Integer totalLikes = 0;
+
         Statement stmt = null;
         String readQuery = "SELECT COUNT(*) from likes where " + DbConstant.LikeConstant.POST_ID + "=" + postId + ";";
         try {
             stmt = DBconnection.getConnection().createStatement();
-            System.out.println("the query: " + readQuery);
+            System.out.println("The total like count query is : " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             Comment comment;
-            while (rs.next()) {
-                return rs.getInt(1);
-
-
+            if (rs.next()) {
+                return rs.getInt(0);
             }
 
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return totalLikes;
+        return 0;
 
     }
 
