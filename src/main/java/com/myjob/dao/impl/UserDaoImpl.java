@@ -164,7 +164,7 @@ public class UserDaoImpl implements UserDao {
         if (userEmail == "" || userEmail == null || pass == "" || pass == null)
             return null;
 
-        User user = new User();
+        User user = null;
         Statement stmt = null;
         String readQuery = "SELECT * from users where " + DbConstant.UserConstant.EMAIL + "='" + userEmail + "' and " + DbConstant.UserConstant.PASSWORD + "='" + pass + "' LIMIT 1";
         System.out.println("the login query is\n "+readQuery);
@@ -175,6 +175,7 @@ public class UserDaoImpl implements UserDao {
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             if ( rs.next() ){
+                user=new User();
                 System.out.println(" record found");
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
@@ -209,6 +210,7 @@ public class UserDaoImpl implements UserDao {
             System.out.println("the query: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             if (rs.next()) {
+                user=new User();
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
@@ -228,15 +230,16 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getLastUser() {
         //   SELECT fields FROM table ORDER BY id DESC LIMIT 1;
-        User user = new User();
+        User user = null;
         Statement stmt = null;
         // Reading last User Record
-        String readQuery = "SELECT * from users" + DbConstant.UserConstant.USER_ID  + " DESC LIMIT 1";
+        String readQuery = "SELECT * from users order by " + DbConstant.UserConstant.USER_ID  + " DESC LIMIT 1";
         try {
             stmt = DBconnection.getConnection().createStatement();
             System.out.println("return last user query is: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             if (rs.next()) {
+                user= new User();
                 System.out.println("Last uset found");
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));

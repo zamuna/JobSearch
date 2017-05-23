@@ -3,7 +3,9 @@ package com.myjob.controller;
 import com.google.gson.Gson;
 import com.myjob.dao.impl.PostDaoImpl;
 import com.myjob.model.Post;
+import com.myjob.model.PostDetail;
 import com.myjob.model.User;
+import javafx.geometry.Pos;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,33 +34,70 @@ public class PostController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        System.out.println("Post controller callded");
 
         HttpSession loginSession = request.getSession();
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
         if (logedInuser != null) {
-            if (request.getParameter("listAllPost")!=null) {
+            System.out.println(" post controller called");
+            System.out.println(request.getParameter("LoadAllPost"));
+            if (request.getParameter("LoadAllPost")!=null) {
                 // if job post Type is 1 : display all job post offering
                 // if type=2 : display all job post seeking
-                Integer postType =  (request.getParameter("btnLoadAllJobSeeking") != null )? 2: 1;
-                writeAllPostListIntoGsson(postType, response);
-                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
-                return;
+                System.out.println("Load ALL post request caught");
+                Integer postType =  (request.getParameter("LoadSeekingJob") != null )? 2: 1;
+                String postDetailGson=getAllPostDetailsGson(postType, logedInuser.getUserid(),false,response); // the json response listOfPostsGson will be forwarded
+
+                HashMap<String, String> jsonData = new HashMap<String, String>();
+                jsonData.put("post",postDetailGson);
+                jsonData.put("Status","success");
+
+                // writing json data as response
+                System.out.println("the post details received are :"+postDetailGson);
+                PrintWriter out = null;
+                try {
+                    out = response.getWriter();
+                    out.write(new Gson().toJson(jsonData));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                out.close();
+                System.out.println("Loading all post on page");
+                request.getRequestDispatcher("home.jsp").forward(request,response);
+
              }
+             //Adding new post case :
             else if (request.getParameter("addPost")!=null)
-            {   // calling the function to add new post
-                addNewPost(logedInuser.getUserid(),request);
-                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
-                return;
+            {
+                // calling the function to add new post
+                System.out.println("Add new post request accepted");
+                String postText=request.getParameter("postContent");
+
+                HashMap<String, String> jsonData = new HashMap<String, String>();
+                String addedLastRow = addNewPost(logedInuser.getUserid(),postText,request,response);
+
+                jsonData.put("post",addedLastRow);
+                jsonData.put("Status","success");
+                System.out.println("Gson data ==========>\n"+new Gson().toJson(jsonData));
+                response.getWriter().write(new Gson().toJson(jsonData));
+                request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
+
+
             }
+            // updating existing Post case :
             else if (request.getParameter("updatePost")!=null)
             {   // calling the function to add new post
+                System.out.println("Update post request accepted");
                 Integer postId=Integer.parseInt(request.getParameter("postId"));
                 updatePost(logedInuser.getUserid(),request);
-                request.getRequestDispatcher("newsfeed.jsp").forward(request,response);
+                request.getRequestDispatcher("home.jsp").forward(request,response);
                 return;
             }
+            // Deleting existing post
             else if (request.getParameter("deletePost")!=null)
             {   // calling the function to delete existing post
+                System.out.println("Delete post request accepted");
                 Integer postId=Integer.parseInt(request.getParameter("postId"));
                 updatePost(logedInuser.getUserid(),request);
                 return;
@@ -66,7 +106,10 @@ public class PostController extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+
+        doPost(request,response);
 
 
     }
@@ -75,12 +118,27 @@ public class PostController extends HttpServlet {
     // Write all postlist data in to response in Gson string and returning
     // the response will be returned to the calling web page, automatically
     //=====================================================
-    void writeAllPostListIntoGsson(Integer postType, HttpServletResponse response) {
+    String getAllPostDetailsGson(Integer postType,Integer userid,boolean isReadLastPostRow, HttpServletResponse response) {
 
-        List<Post> listOfPosts = postDao.getAll(postType,25,0);
-
+        List<PostDetail> listOfPostdetails =postDao.getAllPostDetails(postType,userid,isReadLastPostRow);
         // creating Gsoon file from listOfPost
-        String listOfPostsGson = new Gson().toJson(listOfPosts);
+        String listOfPostsDetailsGson = new Gson().toJson(listOfPostdetails);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        return listOfPostsDetailsGson;
+
+
+    }
+
+    //=====================================================
+    // Write all postlist data in to response in Gson string and returning
+    // the response will be returned to the calling web page, automatically
+    //=====================================================
+    void getLastPostDetailsGson(Integer postType,Integer userid, HttpServletResponse response) {
+
+        List<PostDetail> listOfPostdetails =postDao.getAllPostDetails(postType,userid,false);
+        // creating Gsoon file from listOfPost
+        String listOfPostsDetailsGson = new Gson().toJson(listOfPostdetails);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -88,7 +146,7 @@ public class PostController extends HttpServlet {
         PrintWriter out = null;
         try {
             out = response.getWriter();
-            out.write(listOfPostsGson);
+            out.write(listOfPostsDetailsGson);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,32 +155,51 @@ public class PostController extends HttpServlet {
 
     }
 
+
     //=====================================================
     // adding the new post in to the server database
     // if success, returnd added Post, else return null
     //=====================================================
-    Post addNewPost(Integer userId, HttpServletRequest request)
+    String addNewPost(Integer userId,String postContent, HttpServletRequest request,HttpServletResponse response)
     {
-        Post newPost = new Post();
+        Post newPost = null;
+        System.out.println(" add new post metthod called on servlet");
+        try {
+            System.out.println(""+userId+postContent+new Timestamp(System.currentTimeMillis()).toString());
+            newPost=new Post();
+            newPost.setUserid(userId);
+            newPost.setPost(postContent);
+           // Integer postType = (request.getParameter("PostType") != null & request.getParameter("postType").equals("Seeking")) ? 2 : 1;
+            newPost.setPosttype(1);
+            // current system time is job post created time
+            newPost.setDatecreated(new Timestamp(System.currentTimeMillis()).toString());
+            newPost.setDateupdated(new Timestamp(System.currentTimeMillis()).toString());
 
-        newPost.setUserid(userId);
-        newPost.setPost(request.getParameter("postDescription"));
-        Integer postType =  (request.getParameter("postType") != null & request.getParameter("postType").equals("Seeking"))? 2: 1;
-        newPost.setPosttype(postType);
-        // current system time is job post created time
-        newPost.setDatecreated(new Timestamp(System.currentTimeMillis()));
-        newPost.setDateupdated(new Timestamp(System.currentTimeMillis()));
-      Post newpost=postDao.add(newPost);
-        if (newpost!= null)
+            System.out.println(""+userId+postContent+new Timestamp(System.currentTimeMillis()).toString());
+
+            Post addedPost = postDao.add(newPost);
+
+            if (addedPost != null) {
+                //get last post
+                System.out.println("post is added ");
+                List<PostDetail> lastPostDetail = postDao.getAllPostDetails(1, userId, true);
+                if (lastPostDetail != null) {
+
+                    String addedPostDetailsGson = new Gson().toJson(lastPostDetail.get(0));
+                    System.out.println(" New post added successfully !!");
+                    // if success
+                    return addedPostDetailsGson;
+                }
+
+
+            } else {
+                System.out.println(" Error, Cant added new post !!");
+
+            }
+        }
+        catch (Exception e)
         {
-            System.out.println(" New post added successfully !!");
-            request.setAttribute("Operation_Status", "Post added successfully");
-            request.setAttribute("newPost", newpost);
-
-            return newPost;
-        } else {
-            System.out.println(" Error, Cant adde new post !!");
-            request.setAttribute("Operation_Status", "Post failed");
+            System.out.println(" exception occur post controller : "+e.getStackTrace()+e.getMessage());
         }
         return null;
 
@@ -138,9 +215,9 @@ public class PostController extends HttpServlet {
         Integer postType =  (request.getParameter("postType") != null & request.getParameter("postType").equals("Seeking"))? 2: 1;
         newPost.setPosttype(postType);
         // To Do
-        newPost.setDatecreated(null);// in PostDaoImpl you should not set DateCreated column
+        //newPost.setDatecreated(null);// in PostDaoImpl you should not set DateCreated column
         // current system time is job post updated time
-        newPost.setDateupdated(new Timestamp(System.currentTimeMillis()));
+        newPost.setDateupdated(new Timestamp(System.currentTimeMillis()).toString());
        Post updatedPost=postDao.update(postId,newPost);
         if (updatedPost!= null)
         {
@@ -162,7 +239,7 @@ public class PostController extends HttpServlet {
     Boolean deletePost(Integer postId,HttpServletRequest request)
     {
 
-        if (postDao.delete(postId) != null)
+        if (postDao.delete(postId) ==true)
         {
             System.out.println("  post deleted successfully !!");
             request.setAttribute("Operation_Status", "Post deleted successfully");

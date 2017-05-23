@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F5F8FA;
+    font-family: 'Roboto', sans-serif;
+}
+
+section {
+    display: block;
+}
+
+/*nav css starts*/
+nav#navbar div#navbar-container {
+    background-color: #FFFFFF;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+nav#navbar div#navbar-container .navbar-nav > li:hover {
+    color: #19A0FA;
+    border-bottom: 1px solid #19A0FA;
+}
+
+nav#navbar div#navbar-container .navbar-nav > li.active > a {
+    color: #19A0FA;
+}
+
+nav#navbar div#navbar-container .navbar-nav > li.active {
+    background-color: white;
+    border-bottom: 1px solid #19A0FA;
+}
+
+nav#navbar div#navbar-container .navbar-nav > li > a > span {
+    margin-right: 5px;
+}
+
+/*nav css ends*/
+
+/*section post css starts*/
+section#posts {
+    margin-top: 52px;
+}
+
+div#update-status form{
+    margin-top: 10px;
+}
+
+div#update-status button{
+    float: right;
+}
+
+
+section#posts div.container div > header {
+    margin: 0px;
+    padding: 2px;
+    border: none;
+    min-height: 220px;
+    background-image: url("../images/weather.png");
+    text-align: center;
+}
+
+article header {
+    display: block;
+}
+article header img {
+    max-width: 75px;
+    max-height: 75px;
+    float: left;
+    margin-right: 10px;
+}
+
+article header h1 {
+    margin-top: 0;
+    font-size: x-large;
+    vertical-align: top;
+    text-align: justify;
+}
+
+article header p {
+    font-size: medium;
+    font-weight: 300;
+    color: #999999;
+    text-align: justify;
+}
+
+article.article-container {
+    display: block;
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 720px;
+    /*min-width: 400px;*/
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    /*border-radius: 4px;*/
+    overflow: hidden;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+
+article.article-container:hover {
+    background-color: #F5F8FA;
+}
+
+article.article-container > img {
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+section#posts article.article-container footer {
+    margin: 10px 10px 10px 10px;
+}
+
+article.article-container footer div.btn-group {
+    width: 100%;
+}
+
+article.article-container footer div.btn-group button {
+    width: 50%;
+}
+
+article.article-container footer #comments li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+article.article-container footer #comments input[type="text"] {
+    width: 85%;
+    height: 36px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+article.article-container footer #comments input[type="submit"] {
+    width: 13%;
+    height: 36px;
+    margin-left: 4px;
+    vertical-align: baseline;
+    padding: 1px;
+}
+
+article.article-container footer #comments {
+    display: none;
+}
+
+/*section post css ends*/
+
+/*section profile css starts*/
+section#profile {
+    margin-top: 52px;
+    display: none;
+}
+
+section#profile div > header {
+    position: relative;
+    width: 100%;
+    min-height: 220px;
+    background-image: url("../images/weather.png");
+}
+
+section#profile div > header img {
+    margin: 0 auto;
+    padding: 15px;
+}
+
+section#profile div > header h1 {
+    font-size: large;
+    text-align: center;
+    margin-top: 0px;
+}
+
+section#profile #profile-body > aside{
+    padding-left: 0;
+}
+
+section#profile #profile-body > article{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+section#profile #profile-body > article article header ul.dropdown-menu li{
+    padding: 10px;
+}
+
+@media (max-width: 992px) {
+    section#profile #profile-body > aside{
+        padding-right: 0;
+    }
+}
+aside#my-profile-content div.panel{
+    border-radius:0 ;
+}
+aside#my-profile-content div.panel-heading  > h3{
+    float: left;
+    margin: 6px;
+}
+aside#my-profile-content div.panel-heading  > button {
+    float: right;
+}
+
+#edit-state{
+    width: 32%;
+}
+#edit-city{
+    width: 34%;
+}
+
+#edit-zip{
+    width: 32%;
+}
+
+@media (max-width: 770px) {
+    #edit-state {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #edit-city {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #edit-zip {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/*section profile css ends*/
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

@@ -12,4 +12,13 @@
         <servlet-name>commentController</servlet-name>
         <url-pattern>/comment</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>postController</servlet-name>
+        <servlet-class>com.myjob.controller.PostController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>postController</servlet-name>
+        <url-pattern>/PostController</url-pattern>
+    </servlet-mapping>
+
 </web-app>

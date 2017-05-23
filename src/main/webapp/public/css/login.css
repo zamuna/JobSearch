@@ -1,0 +1,11 @@
+input[type="email"] ,input[type="password"]{
+    border-radius: 5px;
+    padding: 1em;
+}
+#loginDiv
+{
+    margin: 10px auto;
+    padding: 25px;
+    border-radius: 15px;
+
+}

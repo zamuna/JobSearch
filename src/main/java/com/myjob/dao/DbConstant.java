@@ -1,5 +1,7 @@
 package com.myjob.dao;
 
+import java.sql.Timestamp;
+
 /**
  * Created by manozct on 5/20/2017.
  */

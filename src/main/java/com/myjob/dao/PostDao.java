@@ -1,6 +1,7 @@
 package com.myjob.dao;
 
 import com.myjob.model.Post;
+import com.myjob.model.PostDetail;
 import org.omg.CORBA.INTERNAL;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public interface PostDao {
     List<Post> getAll(Integer postType,Integer limit,Integer offset);
     Post add(Post post);
     Post update(Integer postId,Post post);
-    Post delete(Integer postId);
-
+    boolean delete(Integer postId);
+    List<PostDetail> getAllPostDetails(Integer uid, Integer ptype,boolean isReadLastPostedRow);
     Boolean deleteByUserId(Integer userId,Integer postId);
 
     //Post getAll(Integer postType, Integer zipCode);

@@ -8,15 +8,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Job Search App</a>
+                <a class="navbar-brand" href="#">MUM JOB PORTAL</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">SignUp</a></li>
+                     <li><a href="/UserController">Profile</a></li>
+                    <li><a href="/UserController" name="doSignOut">LogOut</a></li>
                     <%--<c:if test="loggedInUser  null">--%>
                         <li><a href="#">${loggedInUser.fullname}</a></li>
+                    <img class="img-responsive" src="http://pipsum.com/70x70.jpg" alt="profile-picture" style="border-radius: 5px; padding: 2px; "/>
                     <%--</c:if>--%>
 
                 </ul>

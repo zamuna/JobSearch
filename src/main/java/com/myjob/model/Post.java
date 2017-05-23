@@ -9,7 +9,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(Integer userid, String post, Integer posttype, Timestamp datecreated, Timestamp dateupdated) {
+    public Post(Integer userid, String post, Integer posttype, String  datecreated, String dateupdated) {
 
         this.userid = userid;
         this.post = post;
@@ -22,8 +22,8 @@ public class Post {
     private Integer userid;
     private String post;
     private Integer posttype;
-    private Timestamp datecreated;
-    private Timestamp dateupdated;
+    private String datecreated;
+    private String dateupdated;
 
     public Integer getPostid() {
         return postid;
@@ -57,19 +57,19 @@ public class Post {
         this.posttype = posttype;
     }
 
-    public Timestamp getDatecreated() {
+    public String getDatecreated() {
         return datecreated;
     }
 
-    public void setDatecreated(Timestamp datecreated) {
+    public void setDatecreated(String datecreated) {
         this.datecreated = datecreated;
     }
 
-    public Timestamp getDateupdated() {
+    public String getDateupdated() {
         return dateupdated;
     }
 
-    public void setDateupdated(Timestamp dateupdated) {
+    public void setDateupdated(String dateupdated) {
         this.dateupdated = dateupdated;
     }
 }

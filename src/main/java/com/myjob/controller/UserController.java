@@ -33,15 +33,25 @@ public class UserController extends HttpServlet {
             System.out.println(" sign in request cought here !!");
             String useremail = request.getParameter("userEmail");
             String password = request.getParameter("userPassword");
+
+            request.setAttribute("hiddenStatusOfOperationResult","hidden");
+
             User newuser = tryLogin(useremail, password);
             if ((newuser) != null) {
                 loginSession.setAttribute("loggedInUser", newuser);
-                // after successful login , Opening newsfeed
-                request.getRequestDispatcher("home.jsp").forward(request,response);
+
                 System.out.println(" user is logged in");
+                // after successful login , perform load all post in page and then forward to home page
+                request.setAttribute("LoadAllPost","TRUE");
+
+                request.getRequestDispatcher("/PostController").forward(request,response);
+                //request.getRequestDispatcher("home.jsp").forward(request,response);
             }else
             {
                 System.out.println(" user invalid !!");
+                request.setAttribute("operationResult","User Credentials didn't match !!");
+                request.setAttribute("hiddenStatusOfOperationResult","");
+
                 request.getRequestDispatcher("index.jsp").forward(request,response);
             }
 
@@ -58,6 +68,7 @@ public class UserController extends HttpServlet {
             if (createNewUser(user) != null) {
                 request.setAttribute("userCreated", "True");
                 System.out.println("New user created");
+                request.setAttribute("operationResult","New User Created");
                 request.getRequestDispatcher("index.jsp").forward(request,response); // index page signIn page for here
             }
         } // user profile change operation
@@ -95,7 +106,6 @@ public class UserController extends HttpServlet {
         User user = new User();
         try {
             user.setFullname(request.getParameter("fullName"));
-
             System.out.println(request.getParameter("gender"));
             user.setGender(Integer.parseInt(request.getParameter("gender")));
             user.setState(request.getParameter("state"));
@@ -114,7 +124,7 @@ public class UserController extends HttpServlet {
 
     }
 
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(javax.servlet.http.HttpServletRequest reqauest, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
 
     }
 
