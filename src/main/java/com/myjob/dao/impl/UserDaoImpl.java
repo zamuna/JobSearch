@@ -237,6 +237,7 @@ public class UserDaoImpl implements UserDao {
             System.out.println("return last user query is: " + readQuery);
             ResultSet rs = stmt.executeQuery(readQuery);
             if (rs.next()) {
+                System.out.println("Last uset found");
                 user.setUserid(rs.getInt(DbConstant.UserConstant.USER_ID));
                 user.setFullname(rs.getString(DbConstant.UserConstant.FULLNAME));
                 user.setGender(rs.getInt(DbConstant.UserConstant.GENDER));
