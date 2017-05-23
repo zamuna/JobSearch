@@ -34,7 +34,7 @@ public class LikeController extends HttpServlet {
         System.out.println("Servlet entered");
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
         if (logedInuser != null) {
-            if (request.getParameter("uname") != null) {
+            if (request.getParameter("postId") != null) {
                 Integer postId = Integer.parseInt(request.getParameter("postId")); // this post id is to be send from  javaScrip Ajax
                 Integer userId = logedInuser.getUserid();
                 System.out.println(postId+"===="+userId);
@@ -56,7 +56,6 @@ public class LikeController extends HttpServlet {
                         if (likeDao.deleteLike(userId, postId) != null) {
                             System.out.println("Now write");
                             arr[0]="0";
-                            //response.getWriter().write("0"); // response 0 means likeStatus= 0
                             System.out.println("Like deleted");
                         }
                     }

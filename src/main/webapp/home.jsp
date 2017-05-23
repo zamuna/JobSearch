@@ -30,12 +30,11 @@
                 <section id="asideRight">
                     <div id="div_job_offering">
                         <h2>Job Offering</h2>
-
-
                         <article class="post">
                             <div class="media col-md-12">
                                 <div class="media-body">
                                     <h4 class="media-heading">Name Here</h4>
+                                    <input type="hidden" value="${1}" id="postIdView">
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -109,33 +108,5 @@
 
                     </section>
                 </section>
-
-<main class="main-container container newsfeed_main">
-        <div class="row-fluid">
-            <section class="col-lg-12 col-xs-12">
-                <aside class="col-lg-4 col-xs-4 right">
-                <pre>
-                Hello this is meksvnDKL,jnvbfkljnklf
-                ekdjmfLKSJDMVKL
-                </pre>
-                </aside>
-                <aside class="col-lg-8 col-xs-8 left">
-                <pre>
-                Hello this is meksvnDKL,jnvbfkljnklf
-                ekdjmfLKSJDMVKL
-
-                Hello this is meksvnDKL,jnvbfkljnklf
-                ekdjmfLKSJDMVKL
-                </pre>
-                </aside>
-
-            </section>
-
-        </div>
-
-
-
-</main>
-
 
 <%@include file="footer.jsp"%>
