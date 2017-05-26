@@ -23,16 +23,6 @@
                         <span class="form__label-content"></span>
                     </label>
                 </div>
-
-               <%-- <div class="form__input">
-                    <input type="email" class="form__input" id="email" name="userEmail" placeholder="User Id" required>
-                </div>
-                <div class="form__input">
-                    <input type="password" class="form__input" id="password" placeholder="Password" name="userPassword"
-                           required>
-                </div>--%>
-
-
                 <label class="error" Value="" ${hiddenStatusOfOperationResult}>${operationResult}</label>
 
 
@@ -70,7 +60,7 @@
 
             </div><!-- /modal -->
 
-        </section><!-- /card -->
+        </section>
 
     </section>
 

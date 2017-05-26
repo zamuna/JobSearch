@@ -15,5 +15,4 @@ public interface UserDao {
     Boolean delete(Integer userId);
     User login(String userEmail,String pass);
     User getUserByEmail(String useremail);
-    User getLastUser();
 }

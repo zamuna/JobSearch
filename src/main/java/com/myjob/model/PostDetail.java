@@ -1,13 +1,5 @@
 package com.myjob.model;
 
-import com.myjob.dao.LikeDao;
-import com.myjob.dao.PostDao;
-import com.myjob.dao.UserDao;
-import com.myjob.dao.impl.LikeDaoImpl;
-import com.myjob.dao.impl.UserDaoImpl;
-
-import java.sql.Timestamp;
-
 /**
  * Created by manozct on 5/20/2017.
  */
@@ -25,18 +17,18 @@ public class PostDetail {
         this.userid = userid;
     }
 
-    private String PostedBy;
+    private String postedBy;
     private Integer noOfLikes;
     private String datecreated;
     private String dateupdated;
     private boolean isLikedByme=false;
 
     public String getPostedBy() {
-        return PostedBy;
+        return postedBy;
     }
 
     public void setPostedBy(String postedBy) {
-        PostedBy = postedBy;
+        this.postedBy = postedBy;
     }
 
     public boolean isLikedByme() {
