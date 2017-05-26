@@ -1,12 +1,14 @@
 package com.myjob.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.myjob.dao.impl.PostDaoImpl;
 import com.myjob.model.Post;
 import com.myjob.model.PostDetail;
 import com.myjob.model.User;
 import javafx.geometry.Pos;
 
+import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,56 +38,34 @@ public class PostController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        System.out.println("Post controller callded");
-
+        System.out.println("Post controller callded !!");
         HttpSession loginSession = request.getSession();
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
-        if (logedInuser != null) {
-            System.out.println(" post controller called");
-            System.out.println(request.getParameter("LoadAllPost"));
-            if (request.getParameter("LoadAllPost")!=null) {
-                // if job post Type is 1 : display all job post offering
-                // if type=2 : display all job post seeking
-                System.out.println("Load ALL post request caught");
-                Integer postType =  (request.getParameter("LoadSeekingJob") != null )? 2: 1;
-                String postDetailGson=getAllPostDetailsGson(postType, logedInuser.getUserid(),false,response); // the json response listOfPostsGson will be forwarded
-
-                HashMap<String, String> jsonData = new HashMap<String, String>();
-                jsonData.put("post",postDetailGson);
-                jsonData.put("Status","success");
-
-                // writing json data as response
-                System.out.println("the post details received are :"+postDetailGson);
-                PrintWriter out = null;
-                try {
-                    out = response.getWriter();
-                    out.write(new Gson().toJson(jsonData));
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                out.close();
-                System.out.println("Loading all post on page");
-                request.getRequestDispatcher("home.jsp").forward(request,response);
-
-             }
-             //Adding new post case :
-            else if (request.getParameter("addPost")!=null)
+        System.out.println("addPost status:"+request.getParameter("addPost"));
+        System.out.println(" Status of LoadAllPost :"+request.getParameter("LoadAllPost"));
+        if (logedInuser == null)
+        {
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+           // Handle Add new post
+            if (request.getParameter("addPost")!=null  )
             {
                 // calling the function to add new post
                 System.out.println("Add new post request accepted");
                 String postText=request.getParameter("postContent");
 
                 HashMap<String, String> jsonData = new HashMap<String, String>();
+
                 String addedLastRow = addNewPost(logedInuser.getUserid(),postText,request,response);
 
                 jsonData.put("post",addedLastRow);
                 jsonData.put("Status","success");
                 System.out.println("Gson data ==========>\n"+new Gson().toJson(jsonData));
-                response.getWriter().write(new Gson().toJson(jsonData));
-                request.getRequestDispatcher("home1Rabin.jsp").forward(request,response);
-
-
+                PrintWriter out = response.getWriter();
+                out.write(new Gson().toJson(jsonData));
+                out.close();
+                return;
+                //request.getRequestDispatcher("home.jsp").forward(request,response);
             }
             // updating existing Post case :
             else if (request.getParameter("updatePost")!=null)
@@ -101,8 +83,46 @@ public class PostController extends HttpServlet {
                 Integer postId=Integer.parseInt(request.getParameter("postId"));
                 updatePost(logedInuser.getUserid(),request);
                 return;
+            }// LOad all Post
+            else if ((boolean)request.getAttribute("LoadAllPost"))
+            {
+                // if job post Type is 1 : display all job post offering
+                // if type=2 : display all job post seeking
+                System.out.println("Load ALL post request caught");
+                Integer postType =  (request.getParameter("LoadSeekingJob") != null )? 2: 1;
+                List<PostDetail> pd= getAllPostDetailsGson(postType, logedInuser.getUserid(),false,response); // the json response listOfPostsGson will be forwarded
+
+                //HashMap<String, String> jsonData = new HashMap<String, String>();
+               // jsonData.put("post",postDetailGson);
+                //jsonData.put("Status","success");
+
+                // writing json data as response
+               /* PrintWriter out = null;
+                try {
+                    out = response.getWriter();
+                    out.write(new Gson().toJson(jsonData));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                out.close();*/
+                //Type listType = new TypeToken<ArrayList<PostDetail>>(){}.getType();
+
+                //List<PostDetail> postDetailList = new Gson().fromJson(postDetailGson, listType);
+
+               // System.out.println("Post detail before :"+postDetailGson);
+                //System.out.println("Post detail after parsing :"+new Gson().toJson(postDetailGson));
+
+                //JSON.parse(jsonData);
+                System.out.println("Before Parsing :"+pd);
+                request.setAttribute("allPosts",pd);
+                System.out.println(" All Post detail"+new Gson().toJson(pd));
+                System.out.println("Loading all post on page");
+                request.getRequestDispatcher("home.jsp").forward(request,response);
+                return;
+
             }
-        }
+
 
     }
 
@@ -118,14 +138,14 @@ public class PostController extends HttpServlet {
     // Write all postlist data in to response in Gson string and returning
     // the response will be returned to the calling web page, automatically
     //=====================================================
-    String getAllPostDetailsGson(Integer postType,Integer userid,boolean isReadLastPostRow, HttpServletResponse response) {
+    List<PostDetail> getAllPostDetailsGson(Integer postType,Integer userid,boolean isReadLastPostRow, HttpServletResponse response) {
 
         List<PostDetail> listOfPostdetails =postDao.getAllPostDetails(postType,userid,isReadLastPostRow);
         // creating Gsoon file from listOfPost
         String listOfPostsDetailsGson = new Gson().toJson(listOfPostdetails);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        return listOfPostsDetailsGson;
+        return listOfPostdetails;
 
 
     }

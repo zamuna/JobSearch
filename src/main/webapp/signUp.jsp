@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp"%>
-<%@include file="nav.jsp"%>
 <main class="container-fluid">
     <section class="sign_up card">
         <h3 class=" glyphicon glyphicon-user" > SignUp</h3>
@@ -85,15 +84,15 @@
                 <input type="number" class="form-control" name="birthYear" id="birthYearId" pattern="[0-9]{5}" placeholder="Birth Year" required/>
             </div>
             <div class="form-group col-lg-12 col-xs-12 has-success input-lg">
-                <input type="email" class="form-control" name="email" id="emailId" placeholder="Email" required />
+                <input type="email" class="form-control" name="email" id="emailId" placeholder="Email" required  />
             </div>
             <div class="form-group col-lg-12 col-xs-12 has-success">
-                <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" <%--pattern="(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{6,}"--%> required
+                <input type="password" class="form-control" name="password" id="passwordId" placeholder="Password" pattern="(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{6,}" required
                 title="Password must be atleast 6 characters and must have atleast a number and any characters from A-Z and a-z"/>
             </div>
             <div class="form__wrapper--submit">
                 <div class="form__input-submit">
-                    <button type="submit" name="doCreateUser" class="btn btn-block btn-primary">Sign Up </button>
+                    <button type="submit" name="doSignUp" class="btn btn-block btn-primary">Sign Up </button>
                 </div>
             </div>
 

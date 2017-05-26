@@ -4,9 +4,6 @@
 
 $(document).ready(function () {
 
-
-
-
     $("#profile-menu").click(function (e) {
         $('#profile').css('display', 'block');
         $("#profile").delay(100).fadeIn(100);
@@ -50,19 +47,19 @@ $(document).ready(function () {
         $("#postMenu").toggle();
     });
 
+
     //update post
     $("#comment").click(function (e) {
         e.preventDefault();
+        $.post("PostController", {"postContent": $("#update-status-textarea").val(),"addPost":"true","PostType":1}).then(function (response){
+          //  console.log("Hello there");
+            let map= JSON.parse(response);
+            console.log("all data"+map);
+            if (map.Status == "success") {
+                //alert("data is =>"+map.post);
+                let post = JSON.parse(map.post);
 
-        $.post("/PostController", {"postContent": $("#update-status-textarea").val(),"addPost":"TRUE","PostType":1}).done(function (response) {
-
-          alert(response.Status);
-
-            if (response.Status === "success") {
-                alert("data is =>"+response.post)
-                let post = JSON.parse(response.post);
-
-                $("#update-status-textarea").val("");
+                $("#update-status-textarea").val('');
 
                 const content = `<div class="row">
                     <article class="col-md-12  col-centered article-container">
@@ -77,14 +74,17 @@ $(document).ready(function () {
                         
                         <footer>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-heart-empty"></span>Like <span class="badge">${post.noOfLikes} is liked $("isLikedByme")</span></button>
-                                <button id="comment-btn1" type="button" class="btn btn-link"><span class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4</span></button>
+                             <button id="comment-btn1" value="${post.postid}" type="button" class="btn btn-link"><span class="glyphicon glyphicon-comment"></span> Comment <span class="badge">4</span></button>
+                                <button type="button" id="${post.postid}"  value="${post.postid}" onclick="likehandler(${post.postid})" name="${post.postid}" class="btn btn-link"><span class="glyphicon glyphicon-heart-empty"></span>Like <span class="badge">${post.noOfLikes}</span></button>
+                               
                             </div>
                         </footer>
+                       
+                        
                     </article>
                     </div>`;
-                alert(content);
-                $(content).prepend($("#update-status-form")).delay( 100 ).fadeIn(200);
+                //console.log(content);
+              $("#update-status-form").append(content).delay( 100 ).fadeIn(200);
 
             } else {
                 alert(" :[ Something went wrong")
@@ -92,3 +92,4 @@ $(document).ready(function () {
         });
     });
 });
+

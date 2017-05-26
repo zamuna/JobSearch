@@ -8,8 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+
 /**
  * Created by Rabin Shrestha on 5/21/2017.
  */
@@ -42,10 +45,8 @@ public class UserController extends HttpServlet {
 
                 System.out.println(" user is logged in");
                 // after successful login , perform load all post in page and then forward to home page
-                request.setAttribute("LoadAllPost","TRUE");
-
-                request.getRequestDispatcher("/PostController").forward(request,response);
-                //request.getRequestDispatcher("home.jsp").forward(request,response);
+                request.setAttribute("LoadAllPost",true);
+                request.getRequestDispatcher("PostController").forward(request,response);
             }else
             {
                 System.out.println(" user invalid !!");
@@ -65,11 +66,19 @@ public class UserController extends HttpServlet {
         else if (request.getParameter("doSignUp") != null)
         {
             User user = getUserInfoFromClient(request);
-            if (createNewUser(user) != null) {
+            Integer birthYear=Integer.parseInt(request.getParameter("birthYear"));
+            if (LocalDate.now().getYear() - birthYear < 18) {
+                request.setAttribute("operationResult","Invalid age");
+                request.setAttribute("userCreated", null);
+                request.getRequestDispatcher("index.jsp").forward(request,response); // index page signIn page for here
+            }
+
+            else if (createNewUser(user) != null) {
                 request.setAttribute("userCreated", "True");
                 System.out.println("New user created");
                 request.setAttribute("operationResult","New User Created");
-                request.getRequestDispatcher("index.jsp").forward(request,response); // index page signIn page for here
+
+                request.getRequestDispatcher("home.jsp").forward(request,response); // index page signIn page for here
             }
         } // user profile change operation
         else if (request.getParameter("doUpdateUser") != null)
@@ -125,7 +134,7 @@ public class UserController extends HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest reqauest, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
-
+doPost(reqauest,response);
     }
 
     /**

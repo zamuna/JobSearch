@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Rabin Shrestha on 5/22/2017.
@@ -29,18 +31,25 @@ public class CommentController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         System.out.println("do Post in Comment COntroller");
         System.out.println(request.getParameter("commentText"));
-
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
         HttpSession loginSession = request.getSession();
         User logedInuser = (User) loginSession.getAttribute("loggedInUser");
         System.out.println(logedInuser);
         if (logedInuser != null) {
-            System.out.println("logged in sucesss");
 
+            if(request.getParameter("commentText")==null || request.getParameter("commentText")=="")
+                return;
+
+            System.out.println("logged in sucesss");
             Integer postId = Integer.parseInt(request.getParameter("postId")); // this post id is to be send from  javaScrip Ajax
             Integer userId = logedInuser.getUserid();
+            // userId=1;
             System.out.println("text");
             System.out.println("postID" + postId);
             System.out.println("userId" + userId);
@@ -57,11 +66,15 @@ public class CommentController extends HttpServlet {
                 if (addedComment != null) {
                     System.out.println("comment added successfully");
                     System.out.println("added comment is :" + addedComment);
+
                     String jsonComment = new Gson().toJson(addedComment);
+                    // System.out.println("JSonCOMMENT:"+jsonComment);
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     // Adding json comment string in response
-                    response.getWriter().write(jsonComment);
+                    System.out.println("jsonComment "+jsonComment);
+                    out.print(jsonComment);
+
                 } else {
                     System.out.println("Comment add operation failed !!");
                 }
@@ -77,7 +90,33 @@ public class CommentController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession loginSession = request.getSession();
+        User logedInuser = (User) loginSession.getAttribute("loggedInUser");
+        System.out.println("login"+logedInuser);
+        if (logedInuser != null) {
+            System.out.println("test");
+            Integer postId = Integer.parseInt(request.getParameter("postId"));
+            System.out.println("post id" +postId);
+            try {
+                List<Comment> getAllComments=commentDao.getAll(postId);
+              /*  for(Comment c:getAllComments){
+                    System.out.println(c.getPostid()+" "+c.getComment());
+                }*/
+                //System.out.println(getAllComments);
+                String jsonComment = new Gson().toJson(getAllComments);
+                // System.out.println("JSonCOMMENT:"+jsonComment);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                System.out.println("JSONCOMMENT"+jsonComment);
+                response.getWriter().write(jsonComment);
+            }
+            catch (NullPointerException ex){
+                System.out.println("NUll pointer exception:"+ex.getMessage());
+            }
 
+
+
+        }
     }
 
 
